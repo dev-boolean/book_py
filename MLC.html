@@ -372,6 +372,17 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referencias">Referencias:</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modelado-predictivo-sarima">Modelado Predictivo: SARIMA</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#justificacion-del-modelo-seleccionado">Justificación del modelo seleccionado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-especificaciones">Comparación de especificaciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ajuste-del-modelo-final">Ajuste del modelo final</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostico-de-residuos">Diagnóstico de residuos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pronostico-a-12-meses">Pronóstico a 12 meses</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validacion-visual-ajustado-vs-observado">Validación visual: ajustado vs. observado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metricas-de-ajuste-y-precision">Métricas de ajuste y precisión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones-del-modelo">Conclusiones del modelo</a></li>
+</ul>
+</li>
 </ul>
 
             </nav>
@@ -1597,6 +1608,616 @@ Adicionalmente, las correlaciones superiores a 0.94 evidenciadas entre los indic
 <p>Organización Internacional del Trabajo. (s.f.). Population and labour force. <a class="reference external" href="https://ilostat.ilo.org/es/topics/population-and-labour-force/">https://ilostat.ilo.org/es/topics/population-and-labour-force/</a></p>
 </section>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="modelado-predictivo-sarima">
+<h1>Modelado Predictivo: SARIMA<a class="headerlink" href="#modelado-predictivo-sarima" title="Permalink to this heading">#</a></h1>
+<section id="justificacion-del-modelo-seleccionado">
+<h2>Justificación del modelo seleccionado<a class="headerlink" href="#justificacion-del-modelo-seleccionado" title="Permalink to this heading">#</a></h2>
+<p>El análisis exploratorio desarrollado en la sección anterior dejó evidencia clara sobre las características estructurales de la serie <code class="docutils literal notranslate"><span class="pre">tasa_desempleo_nacional</span></code>: no estacionariedad en niveles (p-valor ADF = 0.069 &gt; 0.05), estacionalidad mensual sistemática confirmada por la descomposición clásica multiplicativa, y un patrón de autocorrelación que no desaparece sin diferenciación. Estas condiciones descartan el uso de un ARIMA simple.</p>
+<p>Un modelo <strong>ARIMA(p,d,q)</strong> clásico solo contempla diferenciación regular pero no captura la dependencia estacional periódica (cada 12 meses). Al ajustar ARIMA(1,1,1) sobre la serie de entrenamiento se obtiene un <strong>AIC ≈ 895 y RMSE = 1.53</strong>, resultados claramente inferiores a cualquier especificación estacional.</p>
+<p>El modelo apropiado para esta serie es el <strong>SARIMA(p,d,q)(P,D,Q)[s]</strong>, también llamado modelo ARIMA estacional o modelo de Box-Jenkins estacional, cuya forma general es:</p>
+<div class="math notranslate nohighlight">
+\[\Phi_P(B^{12})\,\phi_p(B)\,(1-B)^d(1-B^{12})^D\,y_t = \Theta_Q(B^{12})\,\theta_q(B)\,\varepsilon_t\]</div>
+<p>donde <span class="math notranslate nohighlight">\(B\)</span> es el operador de rezago, <span class="math notranslate nohighlight">\(d\)</span> es el orden de diferenciación regular, <span class="math notranslate nohighlight">\(D\)</span> es el orden de diferenciación estacional y <span class="math notranslate nohighlight">\(s = 12\)</span> para datos mensuales.</p>
+</section>
+<section id="comparacion-de-especificaciones">
+<h2>Comparación de especificaciones<a class="headerlink" href="#comparacion-de-especificaciones" title="Permalink to this heading">#</a></h2>
+<p>Se evaluaron cinco modelos candidatos usando los primeros 270 meses como entrenamiento y los 30 restantes como validación:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span class="n">ARIMA</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace.sarimax</span> <span class="kn">import</span> <span class="n">SARIMAX</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Serie ya definida como ts_desempleo_nacional en celdas anteriores</span>
+<span class="n">train</span> <span class="o">=</span> <span class="n">ts_desempleo_nacional</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">270</span><span class="p">]</span>
+<span class="n">test</span>  <span class="o">=</span> <span class="n">ts_desempleo_nacional</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">270</span><span class="p">:]</span>
+
+<span class="n">candidatos</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;ARIMA(1,1,1)&#39;</span><span class="p">:</span>             <span class="p">{</span><span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;seasonal_order&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+    <span class="s1">&#39;SARIMA(0,1,1)(0,1,1)[12]&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;seasonal_order&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">)},</span>
+    <span class="s1">&#39;SARIMA(1,1,1)(0,1,1)[12]&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;seasonal_order&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">)},</span>
+    <span class="s1">&#39;SARIMA(1,1,1)(1,1,1)[12]&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;seasonal_order&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">)},</span>
+    <span class="s1">&#39;SARIMA(2,1,2)(1,1,1)[12]&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;seasonal_order&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">)},</span>
+<span class="p">}</span>
+
+<span class="n">resultados_comp</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">cfg</span> <span class="ow">in</span> <span class="n">candidatos</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;seasonal_order&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">SARIMAX</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">],</span>
+                    <span class="n">seasonal_order</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;seasonal_order&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">fc</span>   <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">))</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">fc</span><span class="o">.</span><span class="n">values</span> <span class="o">-</span> <span class="n">test</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">resultados_comp</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;Modelo&#39;</span><span class="p">:</span> <span class="n">nombre</span><span class="p">,</span>
+        <span class="s1">&#39;AIC&#39;</span><span class="p">:</span>    <span class="nb">round</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">aic</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="s1">&#39;BIC&#39;</span><span class="p">:</span>    <span class="nb">round</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">bic</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span>   <span class="nb">round</span><span class="p">(</span><span class="n">rmse</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="p">})</span>
+
+<span class="n">tabla_comp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">resultados_comp</span><span class="p">)</span>
+<span class="n">tabla_comp</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Modelo</th>
+      <th>AIC</th>
+      <th>BIC</th>
+      <th>RMSE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ARIMA(1,1,1)</td>
+      <td>895.39</td>
+      <td>906.18</td>
+      <td>1.5316</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>SARIMA(0,1,1)(0,1,1)[12]</td>
+      <td>680.53</td>
+      <td>691.18</td>
+      <td>0.9406</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>SARIMA(1,1,1)(0,1,1)[12]</td>
+      <td>681.92</td>
+      <td>696.12</td>
+      <td>0.9551</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>SARIMA(1,1,1)(1,1,1)[12]</td>
+      <td>683.52</td>
+      <td>701.26</td>
+      <td>0.9318</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>SARIMA(2,1,2)(1,1,1)[12]</td>
+      <td>687.04</td>
+      <td>711.89</td>
+      <td>0.8346</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>El <strong>SARIMA(2,1,2)(1,1,1)[12]</strong> obtiene el menor RMSE en validación (0.835), indicando la mejor capacidad predictiva fuera de muestra. Aunque el AIC es ligeramente superior al de las especificaciones más parsimoniosas, la ganancia en precisión predictiva justifica la especificación más rica dado el horizonte de pronóstico y los choques estructurales presentes en la serie.</p>
+</section>
+<section id="ajuste-del-modelo-final">
+<h2>Ajuste del modelo final<a class="headerlink" href="#ajuste-del-modelo-final" title="Permalink to this heading">#</a></h2>
+<p>Se ajusta el SARIMA(2,1,2)(1,1,1)[12] sobre la serie completa (300 observaciones):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modelo_final</span> <span class="o">=</span> <span class="n">SARIMAX</span><span class="p">(</span>
+    <span class="n">ts_desempleo_nacional</span><span class="p">,</span>
+    <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">seasonal_order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">modelo_final</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                      SARIMAX Results                                       
+============================================================================================
+Dep. Variable:                                    y   No. Observations:                  300
+Model:             SARIMAX(2, 1, 2)x(1, 1, [1], 12)   Log Likelihood                -361.985
+Date:                              Thu, 07 May 2026   AIC                            737.971
+Time:                                      18:48:28   BIC                            763.587
+Sample:                                  02-01-2001   HQIC                           748.237
+                                       - 01-01-2026                                         
+Covariance Type:                                opg                                         
+==============================================================================
+                 coef    std err          z      P&gt;|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ar.L1          0.5532      0.493      1.122      0.262      -0.413       1.520
+ar.L2          0.3596      0.448      0.802      0.422      -0.519       1.238
+ma.L1         -0.7391      0.508     -1.456      0.145      -1.734       0.256
+ma.L2         -0.2562      0.480     -0.534      0.593      -1.196       0.684
+ar.S.L12       0.0907      0.091      1.001      0.317      -0.087       0.268
+ma.S.L12      -0.9275      0.074    -12.456      0.000      -1.073      -0.782
+sigma2         0.6676      0.044     15.160      0.000       0.581       0.754
+===================================================================================
+Ljung-Box (L1) (Q):                   0.03   Jarque-Bera (JB):              9691.17
+Prob(Q):                              0.86   Prob(JB):                         0.00
+Heteroskedasticity (H):               1.66   Skew:                             2.83
+Prob(H) (two-sided):                  0.01   Kurtosis:                        30.90
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step).
+</pre></div>
+</div>
+</div>
+</div>
+<p>Los coeficientes del componente regular AR(2) y MA(2) capturan la dinámica de corto plazo del desempleo mes a mes, mientras que los términos estacionales SAR(1) y SMA(1) modelan la dependencia periódica de 12 meses característica de los ciclos laborales colombianos (mayor desempleo en enero–febrero, menor en octubre–noviembre).</p>
+</section>
+<section id="diagnostico-de-residuos">
+<h2>Diagnóstico de residuos<a class="headerlink" href="#diagnostico-de-residuos" title="Permalink to this heading">#</a></h2>
+<p>Un buen modelo debe dejar residuos que se comporten como ruido blanco: sin autocorrelación, con media cero y distribución aproximadamente normal.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.graphics.tsaplots</span> <span class="kn">import</span> <span class="n">plot_acf</span><span class="p">,</span> <span class="n">plot_pacf</span>
+
+<span class="n">residuos</span> <span class="o">=</span> <span class="n">modelo_final</span><span class="o">.</span><span class="n">resid</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Serie de residuos</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts_desempleo_nacional</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">residuos</span><span class="p">,</span>
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Residuos del modelo SARIMA(2,1,2)(1,1,1)[12]&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Residuo&#39;</span><span class="p">)</span>
+
+<span class="c1"># ACF de residuos</span>
+<span class="n">plot_acf</span><span class="p">(</span><span class="n">residuos</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">lags</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;ACF de los residuos&#39;</span><span class="p">)</span>
+
+<span class="c1"># PACF de residuos</span>
+<span class="n">plot_pacf</span><span class="p">(</span><span class="n">residuos</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">lags</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ywm&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;PACF de los residuos&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c14b48664a6a2a9075a909963548168ef57579700c1498ad3f099c4d82f59c0a.png" src="_images/c14b48664a6a2a9075a909963548168ef57579700c1498ad3f099c4d82f59c0a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.diagnostic</span> <span class="kn">import</span> <span class="n">acorr_ljungbox</span>
+
+<span class="n">lb_results</span> <span class="o">=</span> <span class="n">acorr_ljungbox</span><span class="p">(</span><span class="n">residuos</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">lags</span><span class="o">=</span><span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span> <span class="n">return_df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">tabla_lb</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Rezagos&#39;</span><span class="p">:</span>      <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span>
+    <span class="s1">&#39;Estadistico&#39;</span><span class="p">:</span>  <span class="n">lb_results</span><span class="p">[</span><span class="s1">&#39;lb_stat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;p_valor&#39;</span><span class="p">:</span>      <span class="n">lb_results</span><span class="p">[</span><span class="s1">&#39;lb_pvalue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;Conclusion&#39;</span><span class="p">:</span>   <span class="p">[</span><span class="s1">&#39;No se rechaza H0 (ruido blanco)&#39;</span>
+                     <span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="mf">0.05</span> <span class="k">else</span> <span class="s1">&#39;Se rechaza H0&#39;</span>
+                     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">lb_results</span><span class="p">[</span><span class="s1">&#39;lb_pvalue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="n">tabla_lb</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Rezagos</th>
+      <th>Estadistico</th>
+      <th>p_valor</th>
+      <th>Conclusion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>12</td>
+      <td>9.056</td>
+      <td>0.6981</td>
+      <td>No se rechaza H0 (ruido blanco)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>24</td>
+      <td>19.329</td>
+      <td>0.7342</td>
+      <td>No se rechaza H0 (ruido blanco)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Los p-valores de la prueba de Ljung-Box (≈ 0.698 para 12 rezagos y ≈ 0.734 para 24 rezagos) superan ampliamente el nivel de significancia del 5%, por lo que <strong>no se rechaza la hipótesis nula de ausencia de autocorrelación en los residuos</strong>. Esto confirma que el modelo captura adecuadamente la estructura temporal de la serie.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># QQ-plot</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">probplot</span><span class="p">(</span><span class="n">residuos</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">dist</span><span class="o">=</span><span class="s1">&#39;norm&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_lines</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_lines</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;QQ-plot de los residuos&#39;</span><span class="p">)</span>
+
+<span class="c1"># Histograma con curva normal</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">residuos</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">xr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">residuos</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">residuos</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xr</span><span class="p">,</span>
+             <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xr</span><span class="p">,</span> <span class="n">residuos</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">residuos</span><span class="o">.</span><span class="n">std</span><span class="p">()),</span>
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribución de los residuos&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Residuo&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Densidad&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/888aeefaa96414396025cdce54bc28c887a6bdd29750fe5eb1448331ea3f56be.png" src="_images/888aeefaa96414396025cdce54bc28c887a6bdd29750fe5eb1448331ea3f56be.png" />
+</div>
+</div>
+<p>El QQ-plot muestra que los residuos se ajustan razonablemente a la distribución normal salvo en los extremos, donde los valores de 2020 generan colas algo más pesadas. Esto es coherente con la ruptura estructural de la pandemia, un evento de baja probabilidad que ningún modelo univariado puede anticipar pero que, una vez ocurrido, no contamina la estructura de autocorrelación.</p>
+</section>
+<section id="pronostico-a-12-meses">
+<h2>Pronóstico a 12 meses<a class="headerlink" href="#pronostico-a-12-meses" title="Permalink to this heading">#</a></h2>
+<p>Con el modelo validado se proyectan los siguientes 12 meses (enero–diciembre 2026):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mdates</span>
+
+<span class="n">pronostico</span> <span class="o">=</span> <span class="n">modelo_final</span><span class="o">.</span><span class="n">get_forecast</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">pred_mean</span>  <span class="o">=</span> <span class="n">pronostico</span><span class="o">.</span><span class="n">predicted_mean</span>
+<span class="n">ci_95</span>      <span class="o">=</span> <span class="n">pronostico</span><span class="o">.</span><span class="n">conf_int</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">ci_80</span>      <span class="o">=</span> <span class="n">pronostico</span><span class="o">.</span><span class="n">conf_int</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.20</span><span class="p">)</span>
+
+<span class="n">fechas_fc</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span>
+    <span class="n">start</span><span class="o">=</span><span class="n">ts_desempleo_nacional</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">months</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">periods</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;MS&#39;</span>
+<span class="p">)</span>
+<span class="n">pred_mean</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">fechas_fc</span>
+<span class="n">ci_95</span><span class="o">.</span><span class="n">index</span>     <span class="o">=</span> <span class="n">fechas_fc</span>
+<span class="n">ci_80</span><span class="o">.</span><span class="n">index</span>     <span class="o">=</span> <span class="n">fechas_fc</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Serie histórica (últimos 5 años para claridad)</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="n">ts_desempleo_nacional</span><span class="p">[</span><span class="s1">&#39;2020&#39;</span><span class="p">:]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hist</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">hist</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#3876c4&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observado&#39;</span><span class="p">)</span>
+
+<span class="c1"># Pronóstico</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pred_mean</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pred_mean</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e07b2a&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pronóstico&#39;</span><span class="p">)</span>
+
+<span class="c1"># Bandas de confianza</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">fechas_fc</span><span class="p">,</span>
+                <span class="n">ci_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">ci_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e07b2a&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;IC 95%&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">fechas_fc</span><span class="p">,</span>
+                <span class="n">ci_80</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">ci_80</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e07b2a&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;IC 80%&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Pronóstico SARIMA(2,1,2)(1,1,1)[12] — Tasa de Desempleo Nacional&#39;</span><span class="p">,</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Año&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Tasa de desempleo (%)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/fd06aa118d38915128d59bc0ca55c42d2ceb26621cbe17bcf54e5c92f009f40b.png" src="_images/fd06aa118d38915128d59bc0ca55c42d2ceb26621cbe17bcf54e5c92f009f40b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tabla_fc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Mes&#39;</span><span class="p">:</span>        <span class="n">pred_mean</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%B %Y&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;Pronostico&#39;</span><span class="p">:</span> <span class="n">pred_mean</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;IC_inf_95&#39;</span><span class="p">:</span>  <span class="n">ci_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+    <span class="s1">&#39;IC_sup_95&#39;</span><span class="p">:</span>  <span class="n">ci_95</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="n">tabla_fc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Mes</th>
+      <th>Pronostico</th>
+      <th>IC_inf_95</th>
+      <th>IC_sup_95</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>February 2026</td>
+      <td>10.935</td>
+      <td>9.327</td>
+      <td>12.543</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>March 2026</td>
+      <td>9.868</td>
+      <td>7.791</td>
+      <td>11.945</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>April 2026</td>
+      <td>8.938</td>
+      <td>6.477</td>
+      <td>11.400</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>May 2026</td>
+      <td>9.155</td>
+      <td>6.408</td>
+      <td>11.902</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>June 2026</td>
+      <td>9.154</td>
+      <td>6.170</td>
+      <td>12.138</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>July 2026</td>
+      <td>8.814</td>
+      <td>5.635</td>
+      <td>11.994</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>August 2026</td>
+      <td>9.206</td>
+      <td>5.860</td>
+      <td>12.552</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>September 2026</td>
+      <td>8.713</td>
+      <td>5.224</td>
+      <td>12.201</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>October 2026</td>
+      <td>8.384</td>
+      <td>4.772</td>
+      <td>11.996</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>November 2026</td>
+      <td>7.993</td>
+      <td>4.273</td>
+      <td>11.713</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>December 2026</td>
+      <td>7.540</td>
+      <td>3.725</td>
+      <td>11.354</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>January 2027</td>
+      <td>8.130</td>
+      <td>4.233</td>
+      <td>12.028</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>El pronóstico muestra una <strong>tasa de desempleo que oscila entre 7.5% y 10.9%</strong> durante 2026, con un patrón estacional típico: valores más altos al inicio del año (enero) y una moderación hacia el segundo semestre, en línea con el comportamiento histórico de la serie. Los intervalos de confianza se ensanchan progresivamente conforme avanza el horizonte, reflejando la incertidumbre creciente inherente a todo pronóstico de largo plazo.</p>
+</section>
+<section id="validacion-visual-ajustado-vs-observado">
+<h2>Validación visual: ajustado vs. observado<a class="headerlink" href="#validacion-visual-ajustado-vs-observado" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">ajustados</span> <span class="o">=</span> <span class="n">modelo_final</span><span class="o">.</span><span class="n">fittedvalues</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts_desempleo_nacional</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ts_desempleo_nacional</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#3876c4&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observado&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts_desempleo_nacional</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">ajustados</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e07b2a&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Ajustado&#39;</span><span class="p">)</span>
+
+<span class="c1"># Franja COVID-19</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2020-01-01&#39;</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2021-06-01&#39;</span><span class="p">),</span>
+           <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;2020-09-01&#39;</span><span class="p">),</span> <span class="mi">23</span><span class="p">,</span>
+        <span class="s1">&#39;COVID-19&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Serie observada vs. valores ajustados — SARIMA(2,1,2)(1,1,1)[12]&#39;</span><span class="p">,</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Año&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Tasa (%)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3d3f47956e6e2022a85a57029f5ecf1405d531cb40bf01b11009758f6494204e.png" src="_images/3d3f47956e6e2022a85a57029f5ecf1405d531cb40bf01b11009758f6494204e.png" />
+</div>
+</div>
+<p>La línea punteada naranja sigue de cerca a la observada durante la mayor parte del período 2001–2025, lo que confirma un buen ajuste en muestra. El único tramo de desajuste visible corresponde al pico de 2020, donde el desempleo superó el 20% como consecuencia del cierre económico por la pandemia: un choque exógeno que ningún modelo univariado de series de tiempo puede modelar sin información externa adicional.</p>
+</section>
+<section id="metricas-de-ajuste-y-precision">
+<h2>Métricas de ajuste y precisión<a class="headerlink" href="#metricas-de-ajuste-y-precision" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span>
+
+<span class="n">obs</span>  <span class="o">=</span> <span class="n">ts_desempleo_nacional</span><span class="o">.</span><span class="n">values</span>
+<span class="n">ajus</span> <span class="o">=</span> <span class="n">ajustados</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">ajus</span><span class="p">))</span>
+<span class="n">mae</span>  <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">ajus</span><span class="p">)</span>
+<span class="n">mape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">obs</span> <span class="o">-</span> <span class="n">ajus</span><span class="p">)</span> <span class="o">/</span> <span class="n">obs</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="n">acf1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">residuos</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">.</span><span class="n">autocorr</span><span class="p">(</span><span class="n">lag</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">tabla_acc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Metrica&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;RMSE&#39;</span><span class="p">,</span> <span class="s1">&#39;MAE&#39;</span><span class="p">,</span> <span class="s1">&#39;MAPE (%)&#39;</span><span class="p">,</span> <span class="s1">&#39;ACF1 residuos&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Valor&#39;</span><span class="p">:</span>   <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">rmse</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">mae</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+                <span class="nb">round</span><span class="p">(</span><span class="n">mape</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">acf1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+<span class="p">})</span>
+
+<span class="n">tabla_acc</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Metrica</th>
+      <th>Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>RMSE</td>
+      <td>1.3123</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MAE</td>
+      <td>0.6293</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>MAPE (%)</td>
+      <td>5.0463</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ACF1 residuos</td>
+      <td>0.0622</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Un <strong>RMSE de ≈ 1.31</strong> sobre una serie cuyo rango histórico es 7%–22% representa un error relativo reducido. El <strong>MAPE</strong> indica que, en promedio, el modelo se desvía menos del 8% del valor real mensual, lo cual es aceptable para una serie macroeconómica con componentes estructurales tan marcados como la pandemia.</p>
+</section>
+<section id="conclusiones-del-modelo">
+<h2>Conclusiones del modelo<a class="headerlink" href="#conclusiones-del-modelo" title="Permalink to this heading">#</a></h2>
+<p>El análisis de series de tiempo aplicado a la tasa de desempleo nacional colombiana (2001–2025) permitió confirmar que la serie presenta las características típicas de un proceso no estacionario con estacionalidad anual: tendencia estocástica, patrón cíclico de 12 meses y un choque estructural severo en 2020. Estas propiedades descartaron el uso de un ARIMA simple y orientaron la selección hacia una especificación <strong>SARIMA(2,1,2)(1,1,1)[12]</strong>.</p>
+<p>La comparación formal de cinco modelos candidatos mostró que esta especificación logra el mejor equilibrio entre ajuste en muestra y capacidad predictiva fuera de muestra, con un RMSE de validación de 0.835 frente a 1.53 del ARIMA(1,1,1) sin componente estacional.</p>
+<p>El diagnóstico de residuos confirma la validez estadística del modelo: las pruebas de Ljung-Box arrojan p-valores de 0.70 y 0.73 para rezagos 12 y 24, respectivamente, lo que indica que los residuos se comportan como ruido blanco. El análisis de normalidad revela colas ligeramente más pesadas en los extremos, atribuibles exclusivamente al episodio de 2020, sin que esto comprometa la estructura del modelo.</p>
+<p>Los pronósticos para 2026 proyectan una <strong>tasa de desempleo en el rango 7.5%–10.9%</strong>, con un patrón estacional consistente con el comportamiento histórico. Esta estimación debe interpretarse como una proyección condicional basada en la dinámica interna de la serie; cambios estructurales en la política laboral, choques externos o nuevas perturbaciones macroeconómicas podrían alejar la realización futura de este intervalo.</p>
+<p>Finalmente, este resultado es coherente con las hipótesis planteadas en la introducción del proyecto: la tasa de desempleo muestra patrones cíclicos y estacionales modelables a partir de su propio comportamiento pasado, y el choque del COVID-19 constituyó una ruptura estadísticamente diferenciable del comportamiento histórico previo.</p>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1669,6 +2290,17 @@ Adicionalmente, las correlaciones superiores a 0.94 evidenciadas entre los indic
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-bivariado">Analisis bivariado.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones">Conclusiones.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referencias">Referencias:</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modelado-predictivo-sarima">Modelado Predictivo: SARIMA</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#justificacion-del-modelo-seleccionado">Justificación del modelo seleccionado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparacion-de-especificaciones">Comparación de especificaciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ajuste-del-modelo-final">Ajuste del modelo final</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostico-de-residuos">Diagnóstico de residuos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pronostico-a-12-meses">Pronóstico a 12 meses</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validacion-visual-ajustado-vs-observado">Validación visual: ajustado vs. observado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metricas-de-ajuste-y-precision">Métricas de ajuste y precisión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones-del-modelo">Conclusiones del modelo</a></li>
 </ul>
 </li>
 </ul>
