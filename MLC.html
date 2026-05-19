@@ -369,7 +369,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-las-variables-caracteristicas">Analisis de las variables caracteristicas:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-bivariado">Analisis bivariado.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones">Conclusiones.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referencias">Referencias:</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modelado-predictivo-sarima">Modelado Predictivo: SARIMA</a><ul class="visible nav section-nav flex-column">
@@ -383,6 +382,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones-del-modelo">Conclusiones del modelo</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#referencias">Referencias</a></li>
 </ul>
 
             </nav>
@@ -1597,16 +1597,6 @@ Adicionalmente, las correlaciones superiores a 0.94 evidenciadas entre los indic
 <p>Los gráficos de dispersión también permitieron visualizar estas relaciones de forma clara, confirmando la relación inversa entre desempleo y ocupación, así como la fuerte relación positiva entre las tasas de desempleo de área y nacional. Estos resultados sugieren que el comportamiento del desempleo en las principales áreas urbanas constituye un buen indicador del comportamiento general del mercado laboral colombiano.</p>
 <p>En conjunto, el análisis exploratorio permitió comprender la estructura del conjunto de datos, identificar patrones relevantes, detectar valores atípicos y analizar las relaciones existentes entre los principales indicadores laborales.</p>
 </section>
-<section id="referencias">
-<h2>Referencias:<a class="headerlink" href="#referencias" title="Permalink to this heading">#</a></h2>
-<p>Arango, L., Herrera, P., &amp; Posada, C. (2008). Comisión Permanente de Concertación de Políticas Salariales y Laborales. Ensayos sobre Política Económica, 26(56), 204–263.</p>
-<p>Banco de la República de Colombia. (s. f.). Series estadísticas históricas: Mercado laboral. <a class="reference external" href="https://www.banrep.gov.co/es/estadisticas-economicas/series-historicas/mercado-laboral">https://www.banrep.gov.co/es/estadisticas-economicas/series-historicas/mercado-laboral</a></p>
-<p>Banco de la República de Colombia. (s. f.). Series estadísticas históricas: Mercado laboral. <a class="reference external" href="https://uba.banrep.gov.co/htmlcommons/SeriesHistoricas/mercado-laboral.html">https://uba.banrep.gov.co/htmlcommons/SeriesHistoricas/mercado-laboral.html</a></p>
-<p>Departamento Administrativo Nacional de Estadística (DANE). (s. f.). Gran Encuesta Integrada de Hogares (GEIH): Empleo y desempleo – históricos. <a class="reference external" href="https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-y-desempleo/geih-historicos">https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-y-desempleo/geih-historicos</a></p>
-<p>Congreso de la República de Colombia. (1945). Ley 6 de 1945: Disposiciones sobre convenciones de trabajo, asociaciones profesionales, conflictos colectivos y jurisdicción especial de trabajo.</p>
-<p>Departamento Administrativo Nacional de Estadística (DANE). (s. f.). Mercado laboral. <a class="reference external" href="https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral">https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral</a></p>
-<p>Organización Internacional del Trabajo. (s.f.). Population and labour force. <a class="reference external" href="https://ilostat.ilo.org/es/topics/population-and-labour-force/">https://ilostat.ilo.org/es/topics/population-and-labour-force/</a></p>
-</section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="modelado-predictivo-sarima">
 <h1>Modelado Predictivo: SARIMA<a class="headerlink" href="#modelado-predictivo-sarima" title="Permalink to this heading">#</a></h1>
@@ -1749,8 +1739,8 @@ Adicionalmente, las correlaciones superiores a 0.94 evidenciadas entre los indic
 ============================================================================================
 Dep. Variable:                                    y   No. Observations:                  300
 Model:             SARIMAX(2, 1, 2)x(1, 1, [1], 12)   Log Likelihood                -361.985
-Date:                              Thu, 07 May 2026   AIC                            737.971
-Time:                                      18:48:28   BIC                            763.587
+Date:                              Mon, 18 May 2026   AIC                            737.971
+Time:                                      19:32:13   BIC                            763.587
 Sample:                                  02-01-2001   HQIC                           748.237
                                        - 01-01-2026                                         
 Covariance Type:                                opg                                         
@@ -2218,6 +2208,16 @@ Warnings:
 <p>Finalmente, este resultado es coherente con las hipótesis planteadas en la introducción del proyecto: la tasa de desempleo muestra patrones cíclicos y estacionales modelables a partir de su propio comportamiento pasado, y el choque del COVID-19 constituyó una ruptura estadísticamente diferenciable del comportamiento histórico previo.</p>
 </section>
 </section>
+<section class="tex2jax_ignore mathjax_ignore" id="referencias">
+<h1>Referencias<a class="headerlink" href="#referencias" title="Permalink to this heading">#</a></h1>
+<p>Arango, L., Herrera, P., &amp; Posada, C. (2008). Comisión Permanente de Concertación de Políticas Salariales y Laborales. Ensayos sobre Política Económica, 26(56), 204–263.</p>
+<p>Banco de la República de Colombia. (s. f.). Series estadísticas históricas: Mercado laboral. <a class="reference external" href="https://www.banrep.gov.co/es/estadisticas-economicas/series-historicas/mercado-laboral">https://www.banrep.gov.co/es/estadisticas-economicas/series-historicas/mercado-laboral</a></p>
+<p>Banco de la República de Colombia. (s. f.). Series estadísticas históricas: Mercado laboral. <a class="reference external" href="https://uba.banrep.gov.co/htmlcommons/SeriesHistoricas/mercado-laboral.html">https://uba.banrep.gov.co/htmlcommons/SeriesHistoricas/mercado-laboral.html</a></p>
+<p>Departamento Administrativo Nacional de Estadística (DANE). (s. f.). Gran Encuesta Integrada de Hogares (GEIH): Empleo y desempleo – históricos. <a class="reference external" href="https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-y-desempleo/geih-historicos">https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-y-desempleo/geih-historicos</a></p>
+<p>Congreso de la República de Colombia. (1945). Ley 6 de 1945: Disposiciones sobre convenciones de trabajo, asociaciones profesionales, conflictos colectivos y jurisdicción especial de trabajo.</p>
+<p>Departamento Administrativo Nacional de Estadística (DANE). (s. f.). Mercado laboral. <a class="reference external" href="https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral">https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral</a></p>
+<p>Organización Internacional del Trabajo. (s.f.). Population and labour force. <a class="reference external" href="https://ilostat.ilo.org/es/topics/population-and-labour-force/">https://ilostat.ilo.org/es/topics/population-and-labour-force/</a></p>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -2289,7 +2289,6 @@ Warnings:
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-las-variables-caracteristicas">Analisis de las variables caracteristicas:</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-bivariado">Analisis bivariado.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones">Conclusiones.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referencias">Referencias:</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#modelado-predictivo-sarima">Modelado Predictivo: SARIMA</a><ul class="visible nav section-nav flex-column">
@@ -2303,6 +2302,7 @@ Warnings:
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones-del-modelo">Conclusiones del modelo</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#referencias">Referencias</a></li>
 </ul>
 
   </nav></div>
