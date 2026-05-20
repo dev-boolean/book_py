@@ -141,8 +141,8 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="_static/icon.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/icon.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
 </a></div>
@@ -359,7 +359,13 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#justificacion">Justificación.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivo-general">Objetivo general</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-especificos">Objetivos específicos</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#marco-teorico">Marco teórico.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#marco-teorico">Marco teórico.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-mercado-laboral-oferta-demanda-y-mecanismos-de-ajuste">1. El mercado laboral: oferta, demanda y mecanismos de ajuste</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fricciones-busqueda-y-emparejamiento">2. Fricciones, búsqueda y emparejamiento</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#indicadores-del-mercado-laboral-colombiano">3. Indicadores del mercado laboral colombiano</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#series-de-tiempo-y-modelado-econometrico">4. Series de tiempo y modelado econométrico</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hipotesis">Hipótesis.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodologia">Metodología.</a></li>
 </ul>
@@ -398,6 +404,7 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="mercado-laboral-colombiano">
 <h1>Mercado Laboral Colombiano<a class="headerlink" href="#mercado-laboral-colombiano" title="Permalink to this heading">#</a></h1>
 <p><strong>Autores:</strong> Andrés Parejo, Santiago Hurtado</p>
+<p><a href="https://www.youtube.com/watch?v=2pBUO-to_KM" target="_blank">Mira nuestro video de YouTube aquí</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -512,18 +519,31 @@ Este proyecto se justifica por el valor y la necesidad de contar una vision anal
 </section>
 <section id="marco-teorico">
 <h2>Marco teórico.<a class="headerlink" href="#marco-teorico" title="Permalink to this heading">#</a></h2>
-<p>El mercado laboral se define como el espacio economico en el que interactúan la oferta y la demanda de trabajo. El salario actúa como el mecanismo de ajuste que equilibra estas fuerzas: cuando ka demanda de trabajo supera la oferta, lo salarios tienen a subir, incentivando una mayor participación laboral, cuando ocurre lo contrario, el desempleo surge como consecuencia de un exceso de oferta (Mankiw, 2015).
-Sin embargo, en los últimos años este ajuste rara vez es inmediato ni perfecto, dado que existen fricciones, desacuerdos institucionales que afectan o distorsionan el equilibrio.</p>
-<p>Para un mejor entendimiento del comportamiento del mercado laboral colombiano, el DANE utiliza unas definiciones establecidas por la Organización Internacional del Trabajo. Bajo estos conceptos la población en edad de trabajar (PET) se divide en población económicamente activa (PEA o fuerza de trabajo) y población económicamente inactiva. A su vez, la PEA se subdivide en ocupados y desocupados, lo que da lugar a los tres indicadores centrales de este estudio:</p>
+<section id="el-mercado-laboral-oferta-demanda-y-mecanismos-de-ajuste">
+<h3>1. El mercado laboral: oferta, demanda y mecanismos de ajuste<a class="headerlink" href="#el-mercado-laboral-oferta-demanda-y-mecanismos-de-ajuste" title="Permalink to this heading">#</a></h3>
+<p>El mercado laboral se define como el espacio económico en el que interactúan la oferta y la demanda de trabajo. El salario actúa como el mecanismo de ajuste que equilibra estas fuerzas: cuando la demanda de trabajo supera la oferta, los salarios tienden a subir, incentivando una mayor participación laboral; cuando ocurre lo contrario, el desempleo surge como consecuencia de un exceso de oferta (Mankiw, 2015). Sin embargo, este ajuste rara vez es inmediato ni perfecto, dado que existen fricciones e instituciones que afectan o distorsionan el equilibrio.</p>
+<p>Desde la perspectiva keynesiana, el desempleo puede persistir incluso en equilibrio cuando la demanda agregada es insuficiente para absorber toda la oferta laboral disponible (Keynes, 1936). Esta visión contrasta con el enfoque neoclásico, que postula que el mercado tiende al pleno empleo en el largo plazo, y con el concepto de tasa natural de desempleo desarrollado por Friedman (1968), según el cual existe un nivel de desempleo estructural y friccional que la política monetaria no puede reducir de forma permanente.</p>
+</section>
+<section id="fricciones-busqueda-y-emparejamiento">
+<h3>2. Fricciones, búsqueda y emparejamiento<a class="headerlink" href="#fricciones-busqueda-y-emparejamiento" title="Permalink to this heading">#</a></h3>
+<p>Los modelos de búsqueda y emparejamiento (<em>search and matching</em>), desarrollados principalmente por Pissarides (2000) y Diamond, ofrecen un marco analítico para entender por qué el desempleo persiste incluso en economías dinámicas. En estos modelos, trabajadores y empresas incurren en costos de búsqueda y el proceso de emparejamiento no es instantáneo, lo que genera desempleo friccional. La curva de Beveridge —que relaciona inversamente las vacantes y el desempleo— constituye una representación empírica central de este enfoque (Blanchard &amp; Diamond, 1989).</p>
+<p>Adicionalmente, el fenómeno de histéresis, documentado por Blanchard y Summers (1987), sugiere que choques temporales sobre el desempleo pueden generar efectos permanentes sobre la tasa natural, especialmente cuando los trabajadores desempleados pierden capital humano o son excluidos del proceso de negociación salarial.</p>
+</section>
+<section id="indicadores-del-mercado-laboral-colombiano">
+<h3>3. Indicadores del mercado laboral colombiano<a class="headerlink" href="#indicadores-del-mercado-laboral-colombiano" title="Permalink to this heading">#</a></h3>
+<p>Para un mejor entendimiento del comportamiento del mercado laboral colombiano, el DANE utiliza definiciones establecidas por la Organización Internacional del Trabajo (OIT). Bajo estos conceptos, la población en edad de trabajar (PET) se divide en población económicamente activa (PEA o fuerza de trabajo) y población económicamente inactiva. A su vez, la PEA se subdivide en ocupados y desocupados, lo que da lugar a los tres indicadores centrales de este estudio:</p>
 <ul class="simple">
-<li><p>La tasa global de participación mide la proporción de la PET que hace parte de la fuerza laboral.</p></li>
-<li><p>La tasa de ocupación indica el porcentaje de la PET que se encuentra efectivamente trabajando.</p></li>
-<li><p>La tasa de desempleo dicta la proporción de la fuerza de trabajo que está disponible y buscando, pero que a su vez no encuentra.</p></li>
+<li><p>La <strong>tasa global de participación</strong> mide la proporción de la PET que hace parte de la fuerza laboral.</p></li>
+<li><p>La <strong>tasa de ocupación</strong> indica el porcentaje de la PET que se encuentra efectivamente trabajando.</p></li>
+<li><p>La <strong>tasa de desempleo</strong> señala la proporción de la fuerza de trabajo que está disponible y buscando empleo pero no lo encuentra.</p></li>
 </ul>
-<p>Estos 3 indicadores que son los que llamaremos los principales del estudio no son independientes, deben estar relacionados entre sí.</p>
-<p>Desde el enfoque de las series de tiempo, el mercado laboral arroja componentes que lo hacen en parte complejo, ya que hay: tendencias a largo plazo asociadas a cambios demográficos, ciclos y choques económicos; y estacionalidades derivadas de contrataciones en ciertas épocas del año.
-Para su analisis riguroso, se emplea modelos ARIMA y más recientemente modelos de machine learning aplicados a la predicción de series temporales económicas (Hynman &amp; Athanasopoulos, 2021).</p>
-<p>En el contexto colombiano, trabajos como el de Arango, Herrera y Posada (2008) han documentado la persistencia del desempleo y la importancia de factores institucionales en su determinación, mientras que el Banco de la República ha señalado reiteradamente el impacto diferencial de los choques externos sobre el empleo. El periodo de 2020-2021 constituye un lapso de tiempo a tener demasiado en cuenta ya que generó una ruptura estructural que cualquier modelo predictivo debería estar atento.</p>
+<p>Estos tres indicadores no son independientes entre sí y deben analizarse de forma conjunta para comprender la dinámica del mercado laboral.</p>
+</section>
+<section id="series-de-tiempo-y-modelado-econometrico">
+<h3>4. Series de tiempo y modelado econométrico<a class="headerlink" href="#series-de-tiempo-y-modelado-econometrico" title="Permalink to this heading">#</a></h3>
+<p>Desde el enfoque de las series de tiempo, el mercado laboral presenta componentes que lo hacen complejo: tendencias a largo plazo asociadas a cambios demográficos, ciclos y choques económicos, y estacionalidades derivadas de contrataciones en ciertas épocas del año. Para su análisis riguroso se emplean modelos ARIMA y, más recientemente, modelos de machine learning aplicados a la predicción de series temporales económicas (Hyndman &amp; Athanasopoulos, 2021).</p>
+<p>En el contexto colombiano, trabajos como el de Arango, Herrera y Posada (2008) han documentado la persistencia del desempleo y la importancia de factores institucionales en su determinación, mientras que el Banco de la República ha señalado reiteradamente el impacto diferencial de los choques externos sobre el empleo. El periodo 2020–2021 generó una ruptura estructural que cualquier modelo predictivo debe contemplar con especial atención.</p>
+</section>
 </section>
 <section id="hipotesis">
 <h2>Hipótesis.<a class="headerlink" href="#hipotesis" title="Permalink to this heading">#</a></h2>
@@ -538,23 +558,15 @@ La tasa de desempleo nacional en Colombia presenta una relación inversa y estad
 </section>
 <section id="metodologia">
 <h2>Metodología.<a class="headerlink" href="#metodologia" title="Permalink to this heading">#</a></h2>
-<p>El estudio adopta un enfoque cuantitativo. Dado que las observaciones corresponden a mediciones mensuales de los indicadores del mercado laboral colombiano a traves del tiempo, en este sentido, se enmarca dentro de la metodologia de series de tiempo lo que implica que el orden cronologico de las observaciones es un elemento fundamental para el modelado de los datos.</p>
+<p>El estudio adopta un enfoque cuantitativo. Dado que las observaciones corresponden a mediciones mensuales de los indicadores del mercado laboral colombiano a través del tiempo, se enmarca dentro de la metodología de series de tiempo, lo que implica que el orden cronológico de las observaciones es un elemento fundamental para el modelado de los datos.</p>
 <p>El proyecto contiene 3 fases:</p>
 <p><strong>Primera fase - Análisis Exploratorio de Datos (EDA):</strong> En esta etapa constituye el núcleo del presente proyecto que se divide a su vez en dos niveles.</p>
 <ul class="simple">
 <li><p>Análisis univariado: Se examina el comportamiento individual de cada variable mediante estadísticos descriptivos y gráficos. Se realiza un exploratorio de cada una de las variables por separado para que no afecten a futuro y tampoco generen sesgos o respuestas incorrectas a la pregunta problema.</p></li>
 <li><p>Análisis bivariado: Se evalúan las relaciones entre la variable objetivo y las demás variables del dataset. Este punto es clave ya que más adelante para la realización del modelo nos dice que variables vale la pena incluir y cuales no tienen relación relevante.</p></li>
 </ul>
-<p><strong>Segunda fase - Visualizacion interactiva:</strong> Con base a los graficos y patrones identificados en el EDA, se realizará una dashboard interactivo tanto en Shiny como en Dash.</p>
-<p><strong>Tercera fase - Modelado predictivo:</strong> Se prodecerá a implementar un modelo de prediccion. Dado el caracter temporal de los datos, tendencias y choques, el modelo deberá ser capaz de capturar esas caracteristicas.</p>
-<p><strong>Herramientas computacionales:</strong></p>
-<ol class="arabic simple">
-<li><p>RStudio.</p></li>
-<li><p>Python.</p></li>
-<li><p>Shiny.</p></li>
-<li><p>Dash.</p></li>
-<li><p>Github.</p></li>
-</ol>
+<p><strong>Segunda fase - Visualización interactiva:</strong> Con base en los gráficos y patrones identificados en el EDA, se realizará un dashboard interactivo tanto en Shiny como en Dash.</p>
+<p><strong>Tercera fase - Modelado predictivo:</strong> Se procederá a implementar un modelo de predicción. Dado el carácter temporal de los datos, tendencias y choques, el modelo deberá ser capaz de capturar esas características.</p>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="eda">
@@ -1739,8 +1751,8 @@ Adicionalmente, las correlaciones superiores a 0.94 evidenciadas entre los indic
 ============================================================================================
 Dep. Variable:                                    y   No. Observations:                  300
 Model:             SARIMAX(2, 1, 2)x(1, 1, [1], 12)   Log Likelihood                -361.985
-Date:                              Mon, 18 May 2026   AIC                            737.971
-Time:                                      19:32:13   BIC                            763.587
+Date:                              Tue, 19 May 2026   AIC                            737.971
+Time:                                      23:53:41   BIC                            763.587
 Sample:                                  02-01-2001   HQIC                           748.237
                                        - 01-01-2026                                         
 Covariance Type:                                opg                                         
@@ -2210,13 +2222,25 @@ Warnings:
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="referencias">
 <h1>Referencias<a class="headerlink" href="#referencias" title="Permalink to this heading">#</a></h1>
-<p>Arango, L., Herrera, P., &amp; Posada, C. (2008). Comisión Permanente de Concertación de Políticas Salariales y Laborales. Ensayos sobre Política Económica, 26(56), 204–263.</p>
-<p>Banco de la República de Colombia. (s. f.). Series estadísticas históricas: Mercado laboral. <a class="reference external" href="https://www.banrep.gov.co/es/estadisticas-economicas/series-historicas/mercado-laboral">https://www.banrep.gov.co/es/estadisticas-economicas/series-historicas/mercado-laboral</a></p>
+<p>Arango, L., Herrera, P., &amp; Posada, C. (2008). Comisión Permanente de Concertación de Políticas Salariales y Laborales. <em>Ensayos sobre Política Económica</em>, 26(56), 204–263.</p>
+<p>Banco de la República de Colombia. (2021). <em>Informe de Política Monetaria</em>. <a class="reference external" href="https://www.banrep.gov.co">https://www.banrep.gov.co</a></p>
+<p>Banco de la República de Colombia. (2022). <em>Mercado laboral en Colombia: tendencias y retos estructurales</em>. <a class="reference external" href="https://www.banrep.gov.co/es/estadisticas-economicas/series-historicas/mercado-laboral">https://www.banrep.gov.co/es/estadisticas-economicas/series-historicas/mercado-laboral</a></p>
 <p>Banco de la República de Colombia. (s. f.). Series estadísticas históricas: Mercado laboral. <a class="reference external" href="https://uba.banrep.gov.co/htmlcommons/SeriesHistoricas/mercado-laboral.html">https://uba.banrep.gov.co/htmlcommons/SeriesHistoricas/mercado-laboral.html</a></p>
-<p>Departamento Administrativo Nacional de Estadística (DANE). (s. f.). Gran Encuesta Integrada de Hogares (GEIH): Empleo y desempleo – históricos. <a class="reference external" href="https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-y-desempleo/geih-historicos">https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-y-desempleo/geih-historicos</a></p>
-<p>Congreso de la República de Colombia. (1945). Ley 6 de 1945: Disposiciones sobre convenciones de trabajo, asociaciones profesionales, conflictos colectivos y jurisdicción especial de trabajo.</p>
-<p>Departamento Administrativo Nacional de Estadística (DANE). (s. f.). Mercado laboral. <a class="reference external" href="https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral">https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral</a></p>
-<p>Organización Internacional del Trabajo. (s.f.). Population and labour force. <a class="reference external" href="https://ilostat.ilo.org/es/topics/population-and-labour-force/">https://ilostat.ilo.org/es/topics/population-and-labour-force/</a></p>
+<p>Blanchard, O. (2017). <em>Macroeconomics</em> (7.ª ed.). Pearson.</p>
+<p>Blanchard, O., &amp; Diamond, P. (1989). The Beveridge curve. <em>Brookings Papers on Economic Activity</em>, 1989(1), 1–76.</p>
+<p>Blanchard, O., &amp; Summers, L. H. (1987). Hysteresis in unemployment. <em>European Economic Review</em>, 31(1–2), 288–295.</p>
+<p>Box, G. E. P., &amp; Jenkins, G. M. (1970). <em>Time Series Analysis: Forecasting and Control</em>. Holden-Day.</p>
+<p>Congreso de la República de Colombia. (1945). <em>Ley 6 de 1945: Disposiciones sobre convenciones de trabajo, asociaciones profesionales, conflictos colectivos y jurisdicción especial de trabajo</em>.</p>
+<p>Departamento Administrativo Nacional de Estadística (DANE). (2020). <em>Gran Encuesta Integrada de Hogares — resultados 2020</em>. <a class="reference external" href="https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-y-desempleo/geih-historicos">https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral/empleo-y-desempleo/geih-historicos</a></p>
+<p>Departamento Administrativo Nacional de Estadística (DANE). (2023). <em>Mercado laboral — metodología y resultados</em>. <a class="reference external" href="https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral">https://www.dane.gov.co/index.php/estadisticas-por-tema/mercado-laboral</a></p>
+<p>Friedman, M. (1968). The role of monetary policy. <em>The American Economic Review</em>, 58(1), 1–17.</p>
+<p>Hyndman, R. J., &amp; Athanasopoulos, G. (2021). <em>Forecasting: Principles and Practice</em> (3.ª ed.). OTexts. <a class="reference external" href="https://otexts.com/fpp3/">https://otexts.com/fpp3/</a></p>
+<p>Keynes, J. M. (1936). <em>The General Theory of Employment, Interest and Money</em>. Macmillan.</p>
+<p>Lora, E., &amp; Pagés, C. (2010). <em>La realidad del mercado laboral</em>. Banco Interamericano de Desarrollo.</p>
+<p>Mankiw, N. G. (2015). <em>Principles of Economics</em> (7.ª ed.). Cengage Learning.</p>
+<p>Organización Internacional del Trabajo. (2023). <em>Population and labour force</em>. <a class="reference external" href="https://ilostat.ilo.org/es/topics/population-and-labour-force/">https://ilostat.ilo.org/es/topics/population-and-labour-force/</a></p>
+<p>Pissarides, C. A. (2000). <em>Equilibrium Unemployment Theory</em> (2.ª ed.). MIT Press.</p>
+<p>Posada, C. E., &amp; Ospina, M. (2012). La ley y el mercado laboral en Colombia. <em>Borradores de Economía</em>, Banco de la República.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -2279,7 +2303,13 @@ Warnings:
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#justificacion">Justificación.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivo-general">Objetivo general</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-especificos">Objetivos específicos</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#marco-teorico">Marco teórico.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#marco-teorico">Marco teórico.</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-mercado-laboral-oferta-demanda-y-mecanismos-de-ajuste">1. El mercado laboral: oferta, demanda y mecanismos de ajuste</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fricciones-busqueda-y-emparejamiento">2. Fricciones, búsqueda y emparejamiento</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#indicadores-del-mercado-laboral-colombiano">3. Indicadores del mercado laboral colombiano</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#series-de-tiempo-y-modelado-econometrico">4. Series de tiempo y modelado econométrico</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hipotesis">Hipótesis.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodologia">Metodología.</a></li>
 </ul>
