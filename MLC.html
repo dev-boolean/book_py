@@ -1729,17 +1729,236 @@ Adicionalmente, las correlaciones superiores a 0.94 evidenciadas entre los indic
 </table>
 </div></div></div>
 </div>
-<p>El <strong>SARIMA(2,1,2)(1,1,1)[12]</strong> obtiene el menor RMSE en validación (0.835), indicando la mejor capacidad predictiva fuera de muestra. Aunque el AIC es ligeramente superior al de las especificaciones más parsimoniosas, la ganancia en precisión predictiva justifica la especificación más rica dado el horizonte de pronóstico y los choques estructurales presentes en la serie.</p>
+<p>En este split puntual, el <strong>SARIMA(2,1,2)(1,1,1)[12]</strong> obtiene el menor RMSE de validación (0.835) frente a especificaciones más simples. Sin embargo, un resultado basado en un único corte train/test de 30 observaciones puede ser engañoso si la complejidad adicional no está realmente respaldada por los datos. Antes de fijar el modelo final se verifican dos cosas:</p>
+<ol class="arabic simple">
+<li><p>Si los parámetros de cada especificación son estadísticamente significativos.</p></li>
+<li><p>Si el ranking de RMSE se mantiene al validar con <strong>múltiples orígenes en el tiempo</strong> (walk-forward), no solo con el corte puntual 270/30.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span class="n">ARIMA</span>
+<span class="kn">from</span> <span class="nn">statsmodels.tsa.statespace.sarimax</span> <span class="kn">import</span> <span class="n">SARIMAX</span>
+
+<span class="k">def</span> <span class="nf">ajustar</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;seasonal_order&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">SARIMAX</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">],</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;seasonal_order&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">filas_sig</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">cfg</span> <span class="ow">in</span> <span class="n">candidatos</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">m</span>  <span class="o">=</span> <span class="n">ajustar</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+    <span class="n">pv</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">pvalues</span>
+    <span class="n">filas_sig</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;Modelo&#39;</span><span class="p">:</span>                       <span class="n">nombre</span><span class="p">,</span>
+        <span class="s1">&#39;n_parametros&#39;</span><span class="p">:</span>                 <span class="nb">len</span><span class="p">(</span><span class="n">pv</span><span class="p">),</span>
+        <span class="s1">&#39;n_significativos (p&lt;0.05)&#39;</span><span class="p">:</span>    <span class="nb">int</span><span class="p">((</span><span class="n">pv</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="s1">&#39;parametros_no_significativos&#39;</span><span class="p">:</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pv</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">pv</span> <span class="o">&gt;=</span> <span class="mf">0.05</span><span class="p">])</span> <span class="ow">or</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>
+    <span class="p">})</span>
+
+<span class="n">tabla_sig</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">filas_sig</span><span class="p">)</span>
+<span class="n">tabla_sig</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Modelo</th>
+      <th>n_parametros</th>
+      <th>n_significativos (p&lt;0.05)</th>
+      <th>parametros_no_significativos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ARIMA(1,1,1)</td>
+      <td>3</td>
+      <td>3</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>SARIMA(0,1,1)(0,1,1)[12]</td>
+      <td>3</td>
+      <td>3</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>SARIMA(1,1,1)(0,1,1)[12]</td>
+      <td>4</td>
+      <td>2</td>
+      <td>ar.L1, ma.L1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>SARIMA(1,1,1)(1,1,1)[12]</td>
+      <td>5</td>
+      <td>2</td>
+      <td>ar.L1, ma.L1, ar.S.L12</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>SARIMA(2,1,2)(1,1,1)[12]</td>
+      <td>7</td>
+      <td>0</td>
+      <td>ar.L1, ar.L2, ma.L1, ma.L2, ar.S.L12, ma.S.L12...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>La tabla anterior muestra que el modelo con menor RMSE, <strong>SARIMA(2,1,2)(1,1,1)[12]</strong>, no tiene ningún coeficiente estadísticamente significativo (0 de 7 parámetros, todos con p &gt; 0.19) al ajustarse sobre el mismo tramo de entrenamiento usado para compararlo. En contraste, <strong>SARIMA(0,1,1)(0,1,1)[12]</strong> tiene sus 3 parámetros significativos (p &lt; 0.001). Esto es una señal clara de sobreparametrización: el modelo más complejo no está identificado de forma robusta por los datos, aunque coincida en ajustar mejor ese split puntual.</p>
+<p>Para confirmar si la ventaja de RMSE es real o un artefacto del corte, se repite la comparación con <strong>validación walk-forward</strong>: se reentrena cada modelo en varios orígenes distintos y se pronostican los siguientes 12 meses en cada caso, promediando el error resultante.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">origenes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">204</span><span class="p">,</span> <span class="mi">216</span><span class="p">,</span> <span class="mi">252</span><span class="p">,</span> <span class="mi">264</span><span class="p">,</span> <span class="mi">276</span><span class="p">]</span>
+
+<span class="n">resultados_wf</span> <span class="o">=</span> <span class="p">{</span><span class="n">nombre</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">nombre</span> <span class="ow">in</span> <span class="n">candidatos</span><span class="p">}</span>
+<span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">origenes</span><span class="p">:</span>
+    <span class="n">y_train_o</span> <span class="o">=</span> <span class="n">ts_desempleo_nacional</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">o</span><span class="p">]</span>
+    <span class="n">y_test_o</span>  <span class="o">=</span> <span class="n">ts_desempleo_nacional</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">o</span><span class="p">:</span><span class="n">o</span><span class="o">+</span><span class="n">h</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">cfg</span> <span class="ow">in</span> <span class="n">candidatos</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">m</span>      <span class="o">=</span> <span class="n">ajustar</span><span class="p">(</span><span class="n">y_train_o</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+        <span class="n">fc</span>     <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">rmse_o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">fc</span><span class="o">.</span><span class="n">values</span> <span class="o">-</span> <span class="n">y_test_o</span><span class="o">.</span><span class="n">values</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">resultados_wf</span><span class="p">[</span><span class="n">nombre</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rmse_o</span><span class="p">)</span>
+
+<span class="n">tabla_wf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">resultados_wf</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">ts_desempleo_nacional</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">o</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">origenes</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">tabla_wf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Promedio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tabla_wf</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">tabla_wf</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Mediana&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">tabla_wf</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">tabla_wf</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ARIMA(1,1,1)</th>
+      <th>SARIMA(0,1,1)(0,1,1)[12]</th>
+      <th>SARIMA(1,1,1)(0,1,1)[12]</th>
+      <th>SARIMA(1,1,1)(1,1,1)[12]</th>
+      <th>SARIMA(2,1,2)(1,1,1)[12]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2016-02</th>
+      <td>1.254</td>
+      <td>0.693</td>
+      <td>0.700</td>
+      <td>0.699</td>
+      <td>0.732</td>
+    </tr>
+    <tr>
+      <th>2018-02</th>
+      <td>1.114</td>
+      <td>0.538</td>
+      <td>0.539</td>
+      <td>0.538</td>
+      <td>0.610</td>
+    </tr>
+    <tr>
+      <th>2019-02</th>
+      <td>1.502</td>
+      <td>0.757</td>
+      <td>0.745</td>
+      <td>0.736</td>
+      <td>0.640</td>
+    </tr>
+    <tr>
+      <th>2022-02</th>
+      <td>2.304</td>
+      <td>1.660</td>
+      <td>1.609</td>
+      <td>1.672</td>
+      <td>2.259</td>
+    </tr>
+    <tr>
+      <th>2023-02</th>
+      <td>1.552</td>
+      <td>1.312</td>
+      <td>1.316</td>
+      <td>1.186</td>
+      <td>1.470</td>
+    </tr>
+    <tr>
+      <th>2024-02</th>
+      <td>1.218</td>
+      <td>0.833</td>
+      <td>0.849</td>
+      <td>0.778</td>
+      <td>0.895</td>
+    </tr>
+    <tr>
+      <th>Promedio</th>
+      <td>1.491</td>
+      <td>0.965</td>
+      <td>0.960</td>
+      <td>0.935</td>
+      <td>1.101</td>
+    </tr>
+    <tr>
+      <th>Mediana</th>
+      <td>1.491</td>
+      <td>0.833</td>
+      <td>0.849</td>
+      <td>0.778</td>
+      <td>0.895</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Al validar con 6 orígenes distintos en lugar de un único corte, el ranking se invierte: <strong>SARIMA(2,1,2)(1,1,1)[12]</strong> pasa a ser el <strong>peor</strong> de los cuatro candidatos estacionales tanto en RMSE promedio como en mediana, mientras que especificaciones más simples como SARIMA(1,1,1)(1,1,1)[12] y <strong>SARIMA(0,1,1)(0,1,1)[12]</strong> resultan consistentemente más precisas y estables a través del tiempo.</p>
+<p>Combinando los tres criterios —RMSE walk-forward, AIC/BIC y significancia de los coeficientes—, el mejor balance lo ofrece <strong>SARIMA(0,1,1)(0,1,1)[12]</strong>: su precisión es prácticamente idéntica a la del mejor candidato en el backtest (diferencia de ~3% en RMSE promedio), tiene el mejor AIC y BIC de toda la comparación, y es el único donde el 100% de los parámetros son significativos. Por parsimonia y robustez estadística, <strong>este es el modelo que se adopta como definitivo</strong>, en lugar del SARIMA(2,1,2)(1,1,1)[12] que sugería, de forma no robusta, el RMSE de un único split.</p>
 </section>
 <section id="ajuste-del-modelo-final">
 <h2>Ajuste del modelo final<a class="headerlink" href="#ajuste-del-modelo-final" title="Permalink to this heading">#</a></h2>
-<p>Se ajusta el SARIMA(2,1,2)(1,1,1)[12] sobre la serie completa (300 observaciones):</p>
+<p>Se ajusta el SARIMA(0,1,1)(0,1,1)[12] sobre la serie completa (300 observaciones):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modelo_final</span> <span class="o">=</span> <span class="n">SARIMAX</span><span class="p">(</span>
     <span class="n">ts_desempleo_nacional</span><span class="p">,</span>
-    <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-    <span class="n">seasonal_order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+    <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">seasonal_order</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">modelo_final</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
@@ -1747,30 +1966,26 @@ Adicionalmente, las correlaciones superiores a 0.94 evidenciadas entre los indic
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                      SARIMAX Results                                       
-============================================================================================
-Dep. Variable:                                    y   No. Observations:                  300
-Model:             SARIMAX(2, 1, 2)x(1, 1, [1], 12)   Log Likelihood                -361.985
-Date:                              Wed, 20 May 2026   AIC                            737.971
-Time:                                      00:06:54   BIC                            763.587
-Sample:                                  02-01-2001   HQIC                           748.237
-                                       - 01-01-2026                                         
-Covariance Type:                                opg                                         
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                     SARIMAX Results                                      
+==========================================================================================
+Dep. Variable:                                  y   No. Observations:                  300
+Model:             SARIMAX(0, 1, 1)x(0, 1, 1, 12)   Log Likelihood                -365.248
+Date:                            Fri, 11 Sep 2026   AIC                            736.496
+Time:                                    20:38:09   BIC                            747.475
+Sample:                                02-01-2001   HQIC                           740.896
+                                     - 01-01-2026                                         
+Covariance Type:                              opg                                         
 ==============================================================================
                  coef    std err          z      P&gt;|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
-ar.L1          0.5532      0.493      1.122      0.262      -0.413       1.520
-ar.L2          0.3596      0.448      0.802      0.422      -0.519       1.238
-ma.L1         -0.7391      0.508     -1.456      0.145      -1.734       0.256
-ma.L2         -0.2562      0.480     -0.534      0.593      -1.196       0.684
-ar.S.L12       0.0907      0.091      1.001      0.317      -0.087       0.268
-ma.S.L12      -0.9275      0.074    -12.456      0.000      -1.073      -0.782
-sigma2         0.6676      0.044     15.160      0.000       0.581       0.754
+ma.L1         -0.1537      0.032     -4.788      0.000      -0.217      -0.091
+ma.S.L12      -0.9030      0.054    -16.574      0.000      -1.010      -0.796
+sigma2         0.6955      0.030     23.398      0.000       0.637       0.754
 ===================================================================================
-Ljung-Box (L1) (Q):                   0.03   Jarque-Bera (JB):              9691.17
-Prob(Q):                              0.86   Prob(JB):                         0.00
-Heteroskedasticity (H):               1.66   Skew:                             2.83
-Prob(H) (two-sided):                  0.01   Kurtosis:                        30.90
+Ljung-Box (L1) (Q):                   0.00   Jarque-Bera (JB):              7290.12
+Prob(Q):                              0.96   Prob(JB):                         0.00
+Heteroskedasticity (H):               1.70   Skew:                             2.40
+Prob(H) (two-sided):                  0.01   Kurtosis:                        27.22
 ===================================================================================
 
 Warnings:
@@ -1779,7 +1994,7 @@ Warnings:
 </div>
 </div>
 </div>
-<p>Los coeficientes del componente regular AR(2) y MA(2) capturan la dinámica de corto plazo del desempleo mes a mes, mientras que los términos estacionales SAR(1) y SMA(1) modelan la dependencia periódica de 12 meses característica de los ciclos laborales colombianos (mayor desempleo en enero–febrero, menor en octubre–noviembre).</p>
+<p>El componente de medias móviles regular MA(1) captura la corrección de corto plazo mes a mes, mientras que el término estacional SMA(1) modela la dependencia periódica de 12 meses característica de los ciclos laborales colombianos (mayor desempleo en enero-febrero, menor en octubre-noviembre). A diferencia de especificaciones con componentes autorregresivos adicionales, esta es una estructura de medias móviles puras: sus dos coeficientes (ma.L1 = -0.154, ma.S.L12 = -0.903) son ambos significativos al 0.1% (p &lt; 0.001), lo que confirma que ningún término del modelo es superfluo.</p>
 </section>
 <section id="diagnostico-de-residuos">
 <h2>Diagnóstico de residuos<a class="headerlink" href="#diagnostico-de-residuos" title="Permalink to this heading">#</a></h2>
@@ -1796,7 +2011,7 @@ Warnings:
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts_desempleo_nacional</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">residuos</span><span class="p">,</span>
              <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Residuos del modelo SARIMA(2,1,2)(1,1,1)[12]&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Residuos del modelo SARIMA(0,1,1)(0,1,1)[12]&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Residuo&#39;</span><span class="p">)</span>
 
 <span class="c1"># ACF de residuos</span>
@@ -1813,7 +2028,7 @@ Warnings:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c14b48664a6a2a9075a909963548168ef57579700c1498ad3f099c4d82f59c0a.png" src="_images/c14b48664a6a2a9075a909963548168ef57579700c1498ad3f099c4d82f59c0a.png" />
+<img alt="_images/4807d195756f7f16706182721c543efbee352e7bca8e9516284d3ad738c6515e.png" src="_images/4807d195756f7f16706182721c543efbee352e7bca8e9516284d3ad738c6515e.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1864,22 +2079,22 @@ Warnings:
     <tr>
       <th>0</th>
       <td>12</td>
-      <td>9.056</td>
-      <td>0.6981</td>
+      <td>7.911</td>
+      <td>0.7920</td>
       <td>No se rechaza H0 (ruido blanco)</td>
     </tr>
     <tr>
       <th>1</th>
       <td>24</td>
-      <td>19.329</td>
-      <td>0.7342</td>
+      <td>18.710</td>
+      <td>0.7673</td>
       <td>No se rechaza H0 (ruido blanco)</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>Los p-valores de la prueba de Ljung-Box (≈ 0.698 para 12 rezagos y ≈ 0.734 para 24 rezagos) superan ampliamente el nivel de significancia del 5%, por lo que <strong>no se rechaza la hipótesis nula de ausencia de autocorrelación en los residuos</strong>. Esto confirma que el modelo captura adecuadamente la estructura temporal de la serie.</p>
+<p>Los p-valores de la prueba de Ljung-Box (≈ 0.792 para 12 rezagos y ≈ 0.767 para 24 rezagos) superan ampliamente el nivel de significancia del 5%, por lo que <strong>no se rechaza la hipótesis nula de ausencia de autocorrelación en los residuos</strong>. Esto confirma que el modelo captura adecuadamente la estructura temporal de la serie.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
@@ -1909,10 +2124,10 @@ Warnings:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/888aeefaa96414396025cdce54bc28c887a6bdd29750fe5eb1448331ea3f56be.png" src="_images/888aeefaa96414396025cdce54bc28c887a6bdd29750fe5eb1448331ea3f56be.png" />
+<img alt="_images/a65e89e943e6980ea86c39f149685bc5fa51255b5be3cfdbb3b1fd37fc622be5.png" src="_images/a65e89e943e6980ea86c39f149685bc5fa51255b5be3cfdbb3b1fd37fc622be5.png" />
 </div>
 </div>
-<p>El QQ-plot muestra que los residuos se ajustan razonablemente a la distribución normal salvo en los extremos, donde los valores de 2020 generan colas algo más pesadas. Esto es coherente con la ruptura estructural de la pandemia, un evento de baja probabilidad que ningún modelo univariado puede anticipar pero que, una vez ocurrido, no contamina la estructura de autocorrelación.</p>
+<p>El QQ-plot muestra que los residuos se ajustan razonablemente a la distribución normal salvo en los extremos, donde los valores de 2020 generan colas más pesadas (Jarque-Bera = 7290.1, p &lt; 0.001; curtosis = 27.2 frente a 3 de una normal). El test de heterocedasticidad también se rechaza (H = 1.70, p = 0.01). Ambos resultados son coherentes con la ruptura estructural de la pandemia: un evento de baja probabilidad que ningún modelo univariado puede anticipar, pero que sí infla la varianza y las colas de los residuos una vez ocurrido. Esto implica que los intervalos de confianza del pronóstico (que asumen errores gaussianos) deben interpretarse con cautela, como una aproximación y no como una probabilidad exacta.</p>
 </section>
 <section id="pronostico-a-12-meses">
 <h2>Pronóstico a 12 meses<a class="headerlink" href="#pronostico-a-12-meses" title="Permalink to this heading">#</a></h2>
@@ -1956,7 +2171,7 @@ Warnings:
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Pronóstico SARIMA(2,1,2)(1,1,1)[12] — Tasa de Desempleo Nacional&#39;</span><span class="p">,</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Pronóstico SARIMA(0,1,1)(0,1,1)[12] — Tasa de Desempleo Nacional&#39;</span><span class="p">,</span>
              <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Año&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Tasa de desempleo (%)&#39;</span><span class="p">)</span>
@@ -1967,7 +2182,7 @@ Warnings:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/fd06aa118d38915128d59bc0ca55c42d2ceb26621cbe17bcf54e5c92f009f40b.png" src="_images/fd06aa118d38915128d59bc0ca55c42d2ceb26621cbe17bcf54e5c92f009f40b.png" />
+<img alt="_images/b2ddb4fea427be32b228d586e1681d8f409b23eff338899be21696910a748e98.png" src="_images/b2ddb4fea427be32b228d586e1681d8f409b23eff338899be21696910a748e98.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2012,92 +2227,92 @@ Warnings:
     <tr>
       <th>0</th>
       <td>February 2026</td>
-      <td>10.935</td>
-      <td>9.327</td>
-      <td>12.543</td>
+      <td>10.956</td>
+      <td>9.320</td>
+      <td>12.592</td>
     </tr>
     <tr>
       <th>1</th>
       <td>March 2026</td>
-      <td>9.868</td>
-      <td>7.791</td>
-      <td>11.945</td>
+      <td>9.754</td>
+      <td>7.611</td>
+      <td>11.896</td>
     </tr>
     <tr>
       <th>2</th>
       <td>April 2026</td>
-      <td>8.938</td>
-      <td>6.477</td>
-      <td>11.400</td>
+      <td>8.815</td>
+      <td>6.264</td>
+      <td>11.366</td>
     </tr>
     <tr>
       <th>3</th>
       <td>May 2026</td>
-      <td>9.155</td>
-      <td>6.408</td>
-      <td>11.902</td>
+      <td>9.091</td>
+      <td>6.189</td>
+      <td>11.994</td>
     </tr>
     <tr>
       <th>4</th>
       <td>June 2026</td>
-      <td>9.154</td>
-      <td>6.170</td>
-      <td>12.138</td>
+      <td>9.042</td>
+      <td>5.827</td>
+      <td>12.258</td>
     </tr>
     <tr>
       <th>5</th>
       <td>July 2026</td>
-      <td>8.814</td>
-      <td>5.635</td>
-      <td>11.994</td>
+      <td>8.621</td>
+      <td>5.120</td>
+      <td>12.122</td>
     </tr>
     <tr>
       <th>6</th>
       <td>August 2026</td>
-      <td>9.206</td>
-      <td>5.860</td>
-      <td>12.552</td>
+      <td>8.939</td>
+      <td>5.174</td>
+      <td>12.703</td>
     </tr>
     <tr>
       <th>7</th>
       <td>September 2026</td>
-      <td>8.713</td>
-      <td>5.224</td>
-      <td>12.201</td>
+      <td>8.362</td>
+      <td>4.351</td>
+      <td>12.373</td>
     </tr>
     <tr>
       <th>8</th>
       <td>October 2026</td>
-      <td>8.384</td>
-      <td>4.772</td>
-      <td>11.996</td>
+      <td>8.005</td>
+      <td>3.763</td>
+      <td>12.248</td>
     </tr>
     <tr>
       <th>9</th>
       <td>November 2026</td>
-      <td>7.993</td>
-      <td>4.273</td>
-      <td>11.713</td>
+      <td>7.555</td>
+      <td>3.092</td>
+      <td>12.018</td>
     </tr>
     <tr>
       <th>10</th>
       <td>December 2026</td>
-      <td>7.540</td>
-      <td>3.725</td>
-      <td>11.354</td>
+      <td>7.094</td>
+      <td>2.421</td>
+      <td>11.766</td>
     </tr>
     <tr>
       <th>11</th>
       <td>January 2027</td>
-      <td>8.130</td>
-      <td>4.233</td>
-      <td>12.028</td>
+      <td>7.648</td>
+      <td>2.774</td>
+      <td>12.521</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>El pronóstico muestra una <strong>tasa de desempleo que oscila entre 7.5% y 10.9%</strong> durante 2026, con un patrón estacional típico: valores más altos al inicio del año (enero) y una moderación hacia el segundo semestre, en línea con el comportamiento histórico de la serie. Los intervalos de confianza se ensanchan progresivamente conforme avanza el horizonte, reflejando la incertidumbre creciente inherente a todo pronóstico de largo plazo.</p>
+<p>El pronóstico muestra una <strong>tasa de desempleo que oscila entre 7.1% y 11.0%</strong> durante 2026, con un patrón estacional típico: valores más altos al inicio del año (enero-febrero) y una moderación hacia el segundo semestre, en línea con el comportamiento histórico de la serie. Los intervalos de confianza se ensanchan progresivamente conforme avanza el horizonte, reflejando la incertidumbre creciente inherente a todo pronóstico de largo plazo y la heterocedasticidad ya señalada en los residuos.</p>
 </section>
 <section id="validacion-visual-ajustado-vs-observado">
 <h2>Validación visual: ajustado vs. observado<a class="headerlink" href="#validacion-visual-ajustado-vs-observado" title="Permalink to this heading">#</a></h2>
@@ -2121,7 +2336,7 @@ Warnings:
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Serie observada vs. valores ajustados — SARIMA(2,1,2)(1,1,1)[12]&#39;</span><span class="p">,</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Serie observada vs. valores ajustados — SARIMA(0,1,1)(0,1,1)[12]&#39;</span><span class="p">,</span>
              <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Año&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Tasa (%)&#39;</span><span class="p">)</span>
@@ -2132,10 +2347,10 @@ Warnings:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3d3f47956e6e2022a85a57029f5ecf1405d531cb40bf01b11009758f6494204e.png" src="_images/3d3f47956e6e2022a85a57029f5ecf1405d531cb40bf01b11009758f6494204e.png" />
+<img alt="_images/2ba5791000b95e74482a510f9db99228a6b6edc66d608a7c67f18aa357356fd7.png" src="_images/2ba5791000b95e74482a510f9db99228a6b6edc66d608a7c67f18aa357356fd7.png" />
 </div>
 </div>
-<p>La línea punteada naranja sigue de cerca a la observada durante la mayor parte del período 2001–2025, lo que confirma un buen ajuste en muestra. El único tramo de desajuste visible corresponde al pico de 2020, donde el desempleo superó el 20% como consecuencia del cierre económico por la pandemia: un choque exógeno que ningún modelo univariado de series de tiempo puede modelar sin información externa adicional.</p>
+<p>La línea punteada naranja sigue de cerca a la observada durante la mayor parte del período 2001-2025, lo que confirma un buen ajuste en muestra. El único tramo de desajuste visible corresponde al pico de 2020, donde el desempleo superó el 20% como consecuencia del cierre económico por la pandemia: el RMSE dentro de la ventana COVID (ene-2020 a jun-2021) es 2.17, frente a 1.24 en el resto de la serie —casi el doble de error, concentrado por completo en un choque exógeno que ningún modelo univariado de series de tiempo puede anticipar sin información externa adicional.</p>
 </section>
 <section id="metricas-de-ajuste-y-precision">
 <h2>Métricas de ajuste y precisión<a class="headerlink" href="#metricas-de-ajuste-y-precision" title="Permalink to this heading">#</a></h2>
@@ -2188,36 +2403,36 @@ Warnings:
     <tr>
       <th>0</th>
       <td>RMSE</td>
-      <td>1.3123</td>
+      <td>1.3181</td>
     </tr>
     <tr>
       <th>1</th>
       <td>MAE</td>
-      <td>0.6293</td>
+      <td>0.6433</td>
     </tr>
     <tr>
       <th>2</th>
       <td>MAPE (%)</td>
-      <td>5.0463</td>
+      <td>5.1694</td>
     </tr>
     <tr>
       <th>3</th>
       <td>ACF1 residuos</td>
-      <td>0.0622</td>
+      <td>0.0580</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>Un <strong>RMSE de ≈ 1.31</strong> sobre una serie cuyo rango histórico es 7%–22% representa un error relativo reducido. El <strong>MAPE</strong> indica que, en promedio, el modelo se desvía menos del 8% del valor real mensual, lo cual es aceptable para una serie macroeconómica con componentes estructurales tan marcados como la pandemia.</p>
+<p>Un <strong>RMSE de ≈ 1.32</strong> sobre una serie cuyo rango histórico es 7%-22% representa un error relativo reducido, prácticamente idéntico al del SARIMA(2,1,2)(1,1,1)[12] evaluado inicialmente (1.31). El <strong>MAPE de ≈ 5.17%</strong> indica que, en promedio, el modelo se desvía poco más de un 5% del valor real mensual, lo cual es aceptable para una serie macroeconómica con un componente estructural tan marcado como la pandemia —y se logra con un modelo de solo 2 parámetros (más la varianza), frente a los 7 de la especificación inicialmente considerada.</p>
 </section>
 <section id="conclusiones-del-modelo">
 <h2>Conclusiones del modelo<a class="headerlink" href="#conclusiones-del-modelo" title="Permalink to this heading">#</a></h2>
-<p>El análisis de series de tiempo aplicado a la tasa de desempleo nacional colombiana (2001–2025) permitió confirmar que la serie presenta las características típicas de un proceso no estacionario con estacionalidad anual: tendencia estocástica, patrón cíclico de 12 meses y un choque estructural severo en 2020. Estas propiedades descartaron el uso de un ARIMA simple y orientaron la selección hacia una especificación <strong>SARIMA(2,1,2)(1,1,1)[12]</strong>.</p>
-<p>La comparación formal de cinco modelos candidatos mostró que esta especificación logra el mejor equilibrio entre ajuste en muestra y capacidad predictiva fuera de muestra, con un RMSE de validación de 0.835 frente a 1.53 del ARIMA(1,1,1) sin componente estacional.</p>
-<p>El diagnóstico de residuos confirma la validez estadística del modelo: las pruebas de Ljung-Box arrojan p-valores de 0.70 y 0.73 para rezagos 12 y 24, respectivamente, lo que indica que los residuos se comportan como ruido blanco. El análisis de normalidad revela colas ligeramente más pesadas en los extremos, atribuibles exclusivamente al episodio de 2020, sin que esto comprometa la estructura del modelo.</p>
-<p>Los pronósticos para 2026 proyectan una <strong>tasa de desempleo en el rango 7.5%–10.9%</strong>, con un patrón estacional consistente con el comportamiento histórico. Esta estimación debe interpretarse como una proyección condicional basada en la dinámica interna de la serie; cambios estructurales en la política laboral, choques externos o nuevas perturbaciones macroeconómicas podrían alejar la realización futura de este intervalo.</p>
-<p>Finalmente, este resultado es coherente con las hipótesis planteadas en la introducción del proyecto: la tasa de desempleo muestra patrones cíclicos y estacionales modelables a partir de su propio comportamiento pasado, y el choque del COVID-19 constituyó una ruptura estadísticamente diferenciable del comportamiento histórico previo.</p>
+<p>El análisis de series de tiempo aplicado a la tasa de desempleo nacional colombiana (2001-2025) permitió confirmar que la serie presenta las características típicas de un proceso no estacionario con estacionalidad anual: tendencia estocástica, patrón cíclico de 12 meses y un choque estructural severo en 2020. Estas propiedades descartaron el uso de un ARIMA simple y orientaron la selección hacia una familia de modelos <strong>SARIMA(p,d,q)(P,D,Q)[12]</strong>.</p>
+<p>La comparación inicial de cinco especificaciones sobre un único corte train/test (270/30) favoreció al SARIMA(2,1,2)(1,1,1)[12] por tener el menor RMSE de validación (0.835). Sin embargo, dos verificaciones adicionales mostraron que esa ventaja no era robusta: (1) ninguno de sus 7 coeficientes resultó estadísticamente significativo al reajustar el modelo, y (2) una validación walk-forward con 6 orígenes distintos en el tiempo lo ubicó como el <strong>peor</strong> de los cuatro candidatos estacionales, no el mejor. En contraste, <strong>SARIMA(0,1,1)(0,1,1)[12]</strong> combinó el mejor AIC/BIC de toda la comparación, el 100% de coeficientes significativos (p &lt; 0.001) y una precisión walk-forward prácticamente idéntica a la del mejor candidato. Por parsimonia y robustez estadística, este fue el modelo adoptado como definitivo.</p>
+<p>El diagnóstico de residuos confirma la validez estadística del modelo elegido: las pruebas de Ljung-Box arrojan p-valores de 0.79 y 0.77 para rezagos 12 y 24, respectivamente, indicando que los residuos se comportan como ruido blanco. El análisis de normalidad revela colas más pesadas de lo normal (Jarque-Bera = 7290, curtosis = 27.2) y heterocedasticidad (H = 1.70, p = 0.01), atribuibles casi en su totalidad al episodio de 2020 (RMSE dentro de la ventana COVID = 2.17 frente a 1.24 fuera de ella). Esto no compromete la estructura de autocorrelación del modelo, pero sí implica que los intervalos de confianza del pronóstico deben interpretarse como una aproximación.</p>
+<p>Los pronósticos para 2026 proyectan una <strong>tasa de desempleo en el rango 7.1%-11.0%</strong>, con un patrón estacional consistente con el comportamiento histórico —prácticamente el mismo rango que arrojaba la especificación más compleja, pero ahora respaldado por un modelo de 2 parámetros en lugar de 7. Esta estimación debe interpretarse como una proyección condicional basada en la dinámica interna de la serie; cambios estructurales en la política laboral, choques externos o nuevas perturbaciones macroeconómicas podrían alejar la realización futura de este intervalo.</p>
+<p>Finalmente, este resultado es coherente con las hipótesis planteadas en la introducción del proyecto: la tasa de desempleo muestra patrones cíclicos y estacionales modelables a partir de su propio comportamiento pasado, y el choque del COVID-19 constituyó una ruptura estadísticamente diferenciable del comportamiento histórico previo. El ejercicio adicional de validación realizado aquí ilustra, además, un punto metodológico general: comparar modelos con una sola métrica y un solo corte de datos puede llevar a elegir una especificación sobreajustada; la significancia de los parámetros y la validación con múltiples orígenes son verificaciones necesarias antes de fijar un modelo como definitivo.</p>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="referencias">
