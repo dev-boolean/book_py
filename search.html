@@ -371,6 +371,17 @@ By Andrés Parejo, Santiago Hurtado, Juan Marín
   
   <div class="footer-item">
     
+<div class="extra_footer">
+  <script>
+  document.body.setAttribute('data-bs-threshold', '0,0.1,0.5,1');
+  document.addEventListener('click', function (e) {
+    var enlace = e.target.closest ? e.target.closest('.bd-sidebar-secondary a[href^="#"]') : null;
+    var casilla = document.getElementById('__secondary');
+    if (enlace && casilla) { casilla.checked = false; }
+  });
+</script>
+
+</div>
   </div>
   
 </div>
