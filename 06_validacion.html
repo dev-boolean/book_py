@@ -1,0 +1,835 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Protocolo y validación estadística &#8212; Mercado Laboral Colombiano</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '06_validacion';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Evaluación ampliada y robustez" href="07_evaluacion_ampliada.html" />
+    <link rel="prev" title="Modelo original: agregación local entrópica de expertos (ALEE)" href="05_modelo_original.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Mercado Laboral Colombiano: pronóstico del desempleo con machine learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_correcciones.html">Trazabilidad de correcciones</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_datos.html">Datos: ETL y EDA</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="02b_auditoria.html">Auditoría de fuga de información y declaración de los datos</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="03_benchmarks.html">Modelos benchmark</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="03b_mejores_combinaciones.html">Mejores combinaciones y artefactos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="04_literatura.html">Revisión de literatura y novedad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_modelo_original.html">Modelo original: agregación local entrópica de expertos (ALEE)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Protocolo y validación estadística</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_evaluacion_ampliada.html">Evaluación ampliada y robustez</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_dashboard.html">Dashboard y despliegue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_conclusiones.html">Conclusiones y limitaciones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_reproducibilidad.html">Reproducibilidad y bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F06_validacion.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/06_validacion.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Protocolo y validación estadística</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protocolo-pre-registrado">Protocolo pre-registrado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos-y-validacion">Modelos y validación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-de-hipotesis">Pruebas de hipótesis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados-en-colombia">Resultados en Colombia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#criterio-de-superioridad">Criterio de superioridad</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="protocolo-y-validacion-estadistica">
+<h1>Protocolo y validación estadística<a class="headerlink" href="#protocolo-y-validacion-estadistica" title="Permalink to this heading">#</a></h1>
+<section id="protocolo-pre-registrado">
+<h2>Protocolo pre-registrado<a class="headerlink" href="#protocolo-pre-registrado" title="Permalink to this heading">#</a></h2>
+<p>El protocolo experimental se escribió y se congeló el 5 de noviembre de 2026, antes de la validación confirmatoria. Fijó la métrica primaria (el RMSE medio de los cinco pliegues externos), las particiones, el nivel de significancia, las pruebas de hipótesis y los conjuntos de datos adicionales. Todas las desviaciones posteriores y las iteraciones de diseño quedaron registradas con fecha en <code class="docutils literal notranslate"><span class="pre">experiments/protocolo.md</span></code> y <code class="docutils literal notranslate"><span class="pre">docs/registro_desarrollo.md</span></code>.</p>
+<p>La versión pre-registrada de ALEE tenía cinco expertos. La versión de tres expertos que se presenta en este libro resulta de una iteración de diseño posterior a la validación confirmatoria, ajustada también con validación anidada. En total se evaluaron diez iteraciones de diseño sobre los 240 meses de Colombia. Por eso los ocho conjuntos adicionales, evaluados una sola vez con el modelo ya congelado, son la evidencia principal de que el resultado generaliza (capítulo 7).</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Elemento</p></th>
+<th class="head"><p>Estado</p></th>
+<th class="head"><p>Detalle</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Métrica primaria, particiones y α</p></td>
+<td><p>Pre-registrado</p></td>
+<td><p>Protocolo congelado el 5 de noviembre de 2026</p></td>
+</tr>
+<tr class="row-odd"><td><p>Diebold-Mariano-HLN, Giacomini-White y Friedman</p></td>
+<td><p>Pre-registrado</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-even"><td><p>Conjuntos adicionales: EE. UU., España y México</p></td>
+<td><p>Pre-registrado</p></td>
+<td><p>Evaluados una sola vez, con el modelo congelado</p></td>
+</tr>
+<tr class="row-odd"><td><p>LightGBM</p></td>
+<td><p>Pre-registrado</p></td>
+<td><p>Método reciente fijado en el protocolo</p></td>
+</tr>
+<tr class="row-even"><td><p>ALEE de tres expertos</p></td>
+<td><p>Posterior</p></td>
+<td><p>Iteración de diseño que quitó los dos expertos ridge</p></td>
+</tr>
+<tr class="row-odd"><td><p>Siete iteraciones de diseño más</p></td>
+<td><p>Posterior</p></td>
+<td><p>Otros expertos, otros estados de localización y otras reglas de combinación; ninguna se adoptó</p></td>
+</tr>
+<tr class="row-even"><td><p>Canadá, Australia, Japón, Alemania y Corea del Sur</p></td>
+<td><p>Posterior</p></td>
+<td><p>Países y criterios de inclusión fijados antes de descargar los datos; ALEE se evaluó una sola vez, congelado</p></td>
+</tr>
+<tr class="row-odd"><td><p>Regresión bayesiana y SVR con kernel RBF</p></td>
+<td><p>Posterior</p></td>
+<td><p>Exigidos por la guía del curso</p></td>
+</tr>
+<tr class="row-even"><td><p>Prueba bayesiana con ROPE</p></td>
+<td><p>Posterior</p></td>
+<td><p>ROPE de ±1 % fijado antes de calcularla</p></td>
+</tr>
+<tr class="row-odd"><td><p>MAPE, R², MASE, Holm por prueba y Wilcoxon</p></td>
+<td><p>Posterior</p></td>
+<td><p>Exigidos por la guía</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="modelos-y-validacion">
+<h2>Modelos y validación<a class="headerlink" href="#modelos-y-validacion" title="Permalink to this heading">#</a></h2>
+<p>ALEE se compara con los ocho modelos de regresión del curso (KNN, Ridge, Lasso, regresión bayesiana, árbol de decisión, Random Forest, XGBoost y SVR con kernel RBF) y con LightGBM. Todos usan las mismas particiones, el mismo preprocesamiento y el mismo presupuesto: validación anidada con <code class="docutils literal notranslate"><span class="pre">TimeSeriesSplit</span></code> de 5 pliegues externos y 3 internos con un mes de separación, y optimización bayesiana de 40 evaluaciones con semilla 42 en el bucle interno.</p>
+</section>
+<section id="pruebas-de-hipotesis">
+<h2>Pruebas de hipótesis<a class="headerlink" href="#pruebas-de-hipotesis" title="Permalink to this heading">#</a></h2>
+<p>Como los errores de pronóstico forman una serie de tiempo, se usaron las pruebas que la guía indica para datos con dependencia temporal:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nivel</p></th>
+<th class="head"><p>Prueba</p></th>
+<th class="head"><p>Hipótesis nula</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Por conjunto</p></td>
+<td><p>Diebold-Mariano con la corrección de Harvey-Leybourne-Newbold</p></td>
+<td><p>ALEE y el modelo de comparación tienen el mismo error cuadrático medio</p></td>
+</tr>
+<tr class="row-odd"><td><p>Por conjunto</p></td>
+<td><p>Giacomini-White condicional</p></td>
+<td><p>Igual capacidad predictiva condicional a la información disponible</p></td>
+</tr>
+<tr class="row-even"><td><p>Por conjunto</p></td>
+<td><p>t bayesiana correlacionada con ROPE de ±1 %</p></td>
+<td><p>La diferencia relativa de RMSE está dentro de la región de equivalencia práctica</p></td>
+</tr>
+<tr class="row-odd"><td><p>Entre conjuntos</p></td>
+<td><p>Friedman con Iman-Davenport</p></td>
+<td><p>Los diez modelos tienen el mismo rango medio</p></td>
+</tr>
+<tr class="row-even"><td><p>Entre conjuntos</p></td>
+<td><p>Wilcoxon de rangos con signo y Conover, con Holm</p></td>
+<td><p>ALEE y cada modelo tienen el mismo desempeño en los nueve conjuntos</p></td>
+</tr>
+</tbody>
+</table>
+<p>En cada conjunto se aplica la corrección de Holm sobre los nueve contrastes de ALEE frente a cada modelo. El tamaño del efecto se reporta con la diferencia media de pérdida cuadrática (con su intervalo del 95 % por bootstrap estacionario de bloque medio de 12 meses), la d de Cohen y la A₁₂ de Vargha-Delaney.</p>
+</section>
+<section id="resultados-en-colombia">
+<h2>Resultados en Colombia<a class="headerlink" href="#resultados-en-colombia" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col</span> <span class="o">=</span> <span class="n">pruebas</span><span class="p">[</span><span class="n">pruebas</span><span class="p">[</span><span class="s2">&quot;conjunto&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;colombia&quot;</span><span class="p">]</span>
+<span class="n">tabla</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;Modelo&quot;</span><span class="p">:</span> <span class="n">col</span><span class="p">[</span><span class="s2">&quot;baseline&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">MODEL_LABELS</span><span class="p">),</span>
+    <span class="s2">&quot;RMSE del modelo&quot;</span><span class="p">:</span> <span class="n">col</span><span class="p">[</span><span class="s2">&quot;baseline&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">rmse</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;colombia&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+    <span class="s2">&quot;Diferencia de pérdida [IC 95 %]&quot;</span><span class="p">:</span> <span class="n">col</span><span class="p">[</span><span class="s2">&quot;dif_perdida_media&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; [&quot;</span> <span class="o">+</span> <span class="n">col</span><span class="p">[</span><span class="s2">&quot;ic95_inf&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+                                       <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="n">col</span><span class="p">[</span><span class="s2">&quot;ic95_sup&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DM-HLN p (Holm)&quot;</span><span class="p">:</span> <span class="n">col</span><span class="p">[</span><span class="s2">&quot;dm_p_holm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">p_fmt</span><span class="p">),</span>
+    <span class="s2">&quot;GW p (Holm)&quot;</span><span class="p">:</span> <span class="n">col</span><span class="p">[</span><span class="s2">&quot;gw_p_holm&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">p_fmt</span><span class="p">),</span>
+    <span class="s2">&quot;P(ALEE mejor)&quot;</span><span class="p">:</span> <span class="n">col</span><span class="p">[</span><span class="s2">&quot;p_bayes_mejor&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+    <span class="s2">&quot;d de Cohen&quot;</span><span class="p">:</span> <span class="n">col</span><span class="p">[</span><span class="s2">&quot;d_cohen&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+<span class="p">})</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;Modelo&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE medio por pliegue de ALEE en Colombia: </span><span class="si">{</span><span class="n">rmse</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;colombia&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ALEE&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">tabla</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RMSE medio por pliegue de ALEE en Colombia: 0.817
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RMSE del modelo</th>
+      <th>Diferencia de pérdida [IC 95 %]</th>
+      <th>DM-HLN p (Holm)</th>
+      <th>GW p (Holm)</th>
+      <th>P(ALEE mejor)</th>
+      <th>d de Cohen</th>
+    </tr>
+    <tr>
+      <th>Modelo</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>KNN</th>
+      <td>1.251</td>
+      <td>-1.13 [-2.37, -0.379]</td>
+      <td>0.003</td>
+      <td>0.002</td>
+      <td>0.961</td>
+      <td>-0.22</td>
+    </tr>
+    <tr>
+      <th>Ridge</th>
+      <td>1.219</td>
+      <td>-1.058 [-1.987, -0.421]</td>
+      <td>3.1e-04</td>
+      <td>1.0e-04</td>
+      <td>0.982</td>
+      <td>-0.27</td>
+    </tr>
+    <tr>
+      <th>Lasso</th>
+      <td>1.601</td>
+      <td>-2.654 [-4.782, -0.912]</td>
+      <td>7.4e-09</td>
+      <td>1.3e-08</td>
+      <td>0.976</td>
+      <td>-0.41</td>
+    </tr>
+    <tr>
+      <th>Regresión bayesiana</th>
+      <td>1.289</td>
+      <td>-1.463 [-2.67, -0.506]</td>
+      <td>1.2e-06</td>
+      <td>9.3e-06</td>
+      <td>0.888</td>
+      <td>-0.35</td>
+    </tr>
+    <tr>
+      <th>Árbol de decisión</th>
+      <td>1.475</td>
+      <td>-2.302 [-5.534, -0.591]</td>
+      <td>0.003</td>
+      <td>0.002</td>
+      <td>0.969</td>
+      <td>-0.22</td>
+    </tr>
+    <tr>
+      <th>Random Forest</th>
+      <td>1.298</td>
+      <td>-1.476 [-3.669, -0.262]</td>
+      <td>0.007</td>
+      <td>0.011</td>
+      <td>0.907</td>
+      <td>-0.19</td>
+    </tr>
+    <tr>
+      <th>XGBoost</th>
+      <td>1.284</td>
+      <td>-1.702 [-4.628, -0.127]</td>
+      <td>0.007</td>
+      <td>0.020</td>
+      <td>0.822</td>
+      <td>-0.17</td>
+    </tr>
+    <tr>
+      <th>SVR (kernel RBF)</th>
+      <td>1.283</td>
+      <td>-1.234 [-2.352, -0.507]</td>
+      <td>3.1e-04</td>
+      <td>2.0e-04</td>
+      <td>0.997</td>
+      <td>-0.27</td>
+    </tr>
+    <tr>
+      <th>LightGBM</th>
+      <td>1.452</td>
+      <td>-2.149 [-5.406, -0.371]</td>
+      <td>0.003</td>
+      <td>0.002</td>
+      <td>0.918</td>
+      <td>-0.22</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>El mejor modelo de comparación en Colombia es Ridge (1.219); ALEE tiene 33% menos error. Diebold-Mariano-HLN rechaza en 9 de 9 comparaciones y Giacomini-White en 9 de 9.
+</pre></div>
+</div>
+</div>
+</div>
+<p>La diferencia de pérdida es la de ALEE menos la del modelo de comparación: un valor negativo indica que ALEE se equivoca menos. En Colombia las dos pruebas frecuentistas rechazan la igualdad frente a los nueve modelos después de la corrección de Holm. Las probabilidades de la prueba bayesiana son orientativas, porque esa prueba supone particiones intercambiables y aquí se aplica sobre pliegues temporales dependientes.</p>
+</section>
+<section id="criterio-de-superioridad">
+<h2>Criterio de superioridad<a class="headerlink" href="#criterio-de-superioridad" title="Permalink to this heading">#</a></h2>
+<p>La condición R3 de la guía pide que el modelo original supere a los modelos de comparación con al menos tres pruebas significativas después de corregir por comparaciones múltiples, y con un tamaño del efecto no despreciable.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Resultado</th>
+    </tr>
+    <tr>
+      <th>Prueba</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Diebold-Mariano-HLN (Holm), por conjunto</th>
+      <td>81 de 81 rechazan; p máximo 0.007</td>
+    </tr>
+    <tr>
+      <th>Giacomini-White (Holm), por conjunto</th>
+      <td>81 de 81 rechazan; p máximo 0.020</td>
+    </tr>
+    <tr>
+      <th>Friedman con Iman-Davenport</th>
+      <td>χ² = 62.7, p = 4.0e-10</td>
+    </tr>
+    <tr>
+      <th>Wilcoxon (Holm), entre conjuntos</th>
+      <td>p = 0.035 frente a cada uno de los 9 modelos</td>
+    </tr>
+    <tr>
+      <th>Conover (Holm), entre conjuntos</th>
+      <td>p &lt; 0.05 frente a 8 de 9 modelos</td>
+    </tr>
+    <tr>
+      <th>d de Cohen en Colombia</th>
+      <td>entre -0.17 y -0.41 (negativo: favorece a ALEE)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Las pruebas por conjunto y las pruebas entre conjuntos rechazan la igualdad a favor de ALEE. El Wilcoxon alcanza el mínimo posible con nueve conjuntos, y el Conover no distingue a ALEE de la regresión bayesiana, la segunda mejor en rango medio. El capítulo 7 presenta los resultados en los nueve conjuntos y los estudios de robustez.</p>
+<p>El protocolo completo, con todas las desviaciones declaradas y las iteraciones de diseño, está en <code class="docutils literal notranslate"><span class="pre">experiments/protocolo.md</span></code>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "mlc-ml"
+        },
+        kernelOptions: {
+            name: "mlc-ml",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'mlc-ml'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="05_modelo_original.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Modelo original: agregación local entrópica de expertos (ALEE)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="07_evaluacion_ampliada.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Evaluación ampliada y robustez</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#protocolo-pre-registrado">Protocolo pre-registrado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos-y-validacion">Modelos y validación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-de-hipotesis">Pruebas de hipótesis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resultados-en-colombia">Resultados en Colombia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#criterio-de-superioridad">Criterio de superioridad</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Andrés Parejo, Santiago Hurtado, Juan Marín
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <script>
+  document.body.setAttribute('data-bs-threshold', '0,0.1,0.5,1');
+  document.addEventListener('click', function (e) {
+    var enlace = e.target.closest ? e.target.closest('.bd-sidebar-secondary a[href^="#"]') : null;
+    var casilla = document.getElementById('__secondary');
+    if (enlace && casilla) { casilla.checked = false; }
+  });
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

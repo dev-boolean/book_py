@@ -1,0 +1,780 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Dashboard y despliegue &#8212; Mercado Laboral Colombiano</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '08_dashboard';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Conclusiones y limitaciones" href="09_conclusiones.html" />
+    <link rel="prev" title="Evaluación ampliada y robustez" href="07_evaluacion_ampliada.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Mercado Laboral Colombiano: pronóstico del desempleo con machine learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_correcciones.html">Trazabilidad de correcciones</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_datos.html">Datos: ETL y EDA</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="02b_auditoria.html">Auditoría de fuga de información y declaración de los datos</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="03_benchmarks.html">Modelos benchmark</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="03b_mejores_combinaciones.html">Mejores combinaciones y artefactos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="04_literatura.html">Revisión de literatura y novedad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_modelo_original.html">Modelo original: agregación local entrópica de expertos (ALEE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_validacion.html">Protocolo y validación estadística</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_evaluacion_ampliada.html">Evaluación ampliada y robustez</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Dashboard y despliegue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_conclusiones.html">Conclusiones y limitaciones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_reproducibilidad.html">Reproducibilidad y bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F08_dashboard.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/08_dashboard.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Dashboard y despliegue</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arquitectura">Arquitectura</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secciones">Secciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones-de-diseno">Decisiones de diseño</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficha-del-modelo">Ficha del modelo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detalles-del-modelo">Detalles del modelo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uso-previsto">Uso previsto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usos-no-recomendados">Usos no recomendados</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datos">Datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metricas">Métricas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ablacion">Ablación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-y-riesgos">Limitaciones y riesgos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consideraciones-eticas">Consideraciones éticas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guia-de-despliegue-en-render">Guía de despliegue en Render</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dashboard-y-despliegue">
+<h1>Dashboard y despliegue<a class="headerlink" href="#dashboard-y-despliegue" title="Permalink to this heading">#</a></h1>
+<p>El dashboard lleva los resultados del proyecto a una aplicación web que cualquier persona puede usar sin instalar nada. Se construyó con Dash y <code class="docutils literal notranslate"><span class="pre">dash-bootstrap-components</span></code>, con cinco páginas (<code class="docutils literal notranslate"><span class="pre">use_pages=True</span></code>): Contexto, EDA, Modelos, Resultados y Conclusiones. Conserva el diseño del dashboard del primer entregable (MLC_VIZ_DASH): el video de entrada con el logo, el encabezado con los autores, las pestañas y un asistente conversacional.</p>
+<p><strong>URL pública:</strong> pendiente del despliegue en Render. Para verlo localmente: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span></code> (o <code class="docutils literal notranslate"><span class="pre">iniciar_dashboard.bat</span></code> en Windows) y abrir <a class="reference external" href="http://127.0.0.1:8050">http://127.0.0.1:8050</a>.</p>
+<section id="arquitectura">
+<h2>Arquitectura<a class="headerlink" href="#arquitectura" title="Permalink to this heading">#</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Ruta</p></th>
+<th class="head"><p>Contenido</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">app.py</span></code></p></td>
+<td><p>Crea la aplicación, el video de entrada, el encabezado y las pestañas, registra el asistente y expone <code class="docutils literal notranslate"><span class="pre">server</span></code> para <code class="docutils literal notranslate"><span class="pre">gunicorn</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pages/</span></code></p></td>
+<td><p>Una página por sección (<code class="docutils literal notranslate"><span class="pre">contexto.py</span></code>, <code class="docutils literal notranslate"><span class="pre">eda.py</span></code>, <code class="docutils literal notranslate"><span class="pre">modelos.py</span></code>, <code class="docutils literal notranslate"><span class="pre">resultados.py</span></code> y <code class="docutils literal notranslate"><span class="pre">conclusiones.py</span></code>), con sus propios <em>callbacks</em></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">src/dash_data.py</span></code></p></td>
+<td><p>Carga única de datos, artefactos y resultados (<code class="docutils literal notranslate"><span class="pre">functools.lru_cache</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">src/dash_plots.py</span></code></p></td>
+<td><p>Funciones que construyen las figuras, con una plantilla y una paleta comunes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">src/explain.py</span></code></p></td>
+<td><p>Valores de Shapley por permutaciones, intervalos conformes, ACF y PACF, sin dependencias pesadas</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">src/chatbot.py</span></code>, <code class="docutils literal notranslate"><span class="pre">assets/chatbot.js</span></code></p></td>
+<td><p>Asistente: el servidor arma el contexto con los datos y los resultados del proyecto y consulta la API de Groq</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">assets/</span></code></p></td>
+<td><p>Estilos (<code class="docutils literal notranslate"><span class="pre">base_viz_dash.css</span></code> del primer entregable y <code class="docutils literal notranslate"><span class="pre">style.css</span></code>), video y animación de entrada</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scripts/build_dashboard_data.py</span></code></p></td>
+<td><p>Precalcula las predicciones fuera de muestra, el MCS, Friedman, los intervalos y los valores de Shapley globales</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">artifacts/</span></code></p></td>
+<td><p>Modelos serializados con <code class="docutils literal notranslate"><span class="pre">metadata.json</span></code> (capítulo 3) y tablas de resultados del paper (capítulo 7)</p></td>
+</tr>
+</tbody>
+</table>
+<p>El dashboard <strong>nunca entrena modelos ni corre búsquedas de hiperparámetros</strong>: solo carga artefactos y archivos precalculados.</p>
+</section>
+<section id="secciones">
+<h2>Secciones<a class="headerlink" href="#secciones" title="Permalink to this heading">#</a></h2>
+<figure class="align-default" id="id2">
+<a class="reference internal image-reference" href="_images/dash_contexto.jpg"><img alt="Encabezado del dashboard con el logo, los autores y las pestañas, y la portada de Contexto con la cifra de desempleo más reciente" src="_images/dash_contexto.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Contexto: el problema, la cifra más reciente con su fuente, la pregunta de investigación, las definiciones de los indicadores, los datos con su diccionario, la metodología y las limitaciones.</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id3">
+<a class="reference internal image-reference" href="_images/dash_eda.jpg"><img alt="Página de EDA con los filtros de fecha, años y cobertura y la serie de las tres tasas del mercado laboral" src="_images/dash_eda.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">EDA: los filtros de fechas, años y cobertura actualizan todos los gráficos, y cada uno lleva una frase de interpretación calculada con los datos filtrados.</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id4">
+<a class="reference internal image-reference" href="_images/dash_modelos.jpg"><img alt="Página de Modelos con el Model Confidence Set y la sección del modelo original ALEE con su pseudocódigo" src="_images/dash_modelos.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Modelos: la tabla de líderes, el diagnóstico y la interpretabilidad de cada modelo, la comparación estadística y la sección del modelo original.</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id5">
+<a class="reference internal image-reference" href="_images/dash_resultados.jpg"><img alt="Página de Resultados con tres indicadores y la tabla del RMSE de los diez modelos en los nueve conjuntos" src="_images/dash_resultados.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Resultados: el desempeño de ALEE frente a los modelos del curso y LightGBM en los nueve conjuntos, con las pruebas de significancia.</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Lo que contiene cada página:</p>
+<ul class="simple">
+<li><p><strong>Modelos.</strong></p>
+<ul>
+<li><p>La tabla de líderes con la mejor combinación de cada modelo del segundo entregable, ALEE y los modelos que agregó el paper.</p></li>
+<li><p>El diagnóstico del modelo elegido. En regresión: observado frente a pronosticado, residuos, histograma y ACF. En clasificación: matriz de confusión, curvas ROC y de precisión y exhaustividad, y diagrama de calibración.</p></li>
+<li><p>La importancia global con valores de Shapley, el Model Confidence Set y el diagrama de diferencia crítica.</p></li>
+<li><p>La sección de ALEE: idea, pseudocódigo, curva de convergencia, ablación en Colombia, costo computacional y ficha del modelo.</p></li>
+</ul>
+</li>
+<li><p><strong>Resultados.</strong></p>
+<ul>
+<li><p>La tabla de las cinco métricas en los nueve conjuntos y un mapa del error relativo a ALEE.</p></li>
+<li><p>Las pruebas de Diebold-Mariano-HLN, Giacomini-White y la prueba bayesiana con ROPE por conjunto; el diagrama de diferencia crítica y las pruebas de Wilcoxon y Conover entre conjuntos.</p></li>
+<li><p>La ablación y el error por régimen de volatilidad de cada conjunto.</p></li>
+</ul>
+</li>
+<li><p><strong>Conclusiones.</strong> Los hallazgos sobre los datos y los modelos, las limitaciones y la bibliografía del paper.</p></li>
+</ul>
+</section>
+<section id="decisiones-de-diseno">
+<h2>Decisiones de diseño<a class="headerlink" href="#decisiones-de-diseno" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Valores de Shapley propios.</strong> <code class="docutils literal notranslate"><span class="pre">shap</span></code> y sus dependencias (<code class="docutils literal notranslate"><span class="pre">numba</span></code>, <code class="docutils literal notranslate"><span class="pre">llvmlite</span></code>) son pesados para los 512 MB del plan gratuito de Render. <code class="docutils literal notranslate"><span class="pre">src/explain.py</span></code> estima los valores por muestreo de permutaciones <span id="id1">[<a class="reference internal" href="10_reproducibilidad.html#id9" title="Erik Štrumbelj and Igor Kononenko. Explaining prediction models and individual predictions with feature contributions. Knowledge and Information Systems, 41(3):647–665, 2014.">vStrumbeljK14</a>]</span>. Sirve para cualquier modelo, incluido ALEE, y cumple de forma exacta la propiedad de eficiencia. Una prueba (<code class="docutils literal notranslate"><span class="pre">tests/test_dashboard.py</span></code>) comprueba que en un modelo lineal da el valor exacto.</p></li>
+<li><p><strong>Asistente.</strong> El contexto que recibe el modelo de lenguaje se arma con los datos y las tablas del proyecto, de modo que sus cifras coinciden con las del dashboard. Las instrucciones le prohíben inventar cifras y responder temas ajenos al proyecto. Necesita la variable de entorno <code class="docutils literal notranslate"><span class="pre">GROQ_API_KEY</span></code>; sin ella responde con un aviso y el resto de la aplicación funciona igual.</p></li>
+<li><p><strong>Paleta y accesibilidad.</strong> Cinco colores, y el color nunca es la única señal: las series también se distinguen por tipo de línea o de marcador, y las barras con diferencias significativas llevan rayas. Todos los gráficos tienen título, ejes con unidades y texto en el <em>hover</em>, y las imágenes tienen texto alternativo.</p></li>
+<li><p><strong>Rendimiento.</strong> Los datos y los modelos se cargan una sola vez al iniciar el servidor. El video de entrada solo se reproduce al abrir la aplicación: cambiar de pestaña no recarga la página.</p></li>
+<li><p><strong>Diseño adaptable.</strong> Las páginas usan la rejilla de Bootstrap (<code class="docutils literal notranslate"><span class="pre">dbc.Row</span></code> y <code class="docutils literal notranslate"><span class="pre">dbc.Col</span></code>) y se revisaron en escritorio y en tableta.</p></li>
+</ul>
+<figure class="align-default" id="id6">
+<a class="reference internal image-reference" href="_images/dash_tableta.jpg"><img alt="Página de EDA en una pantalla de tableta, con los filtros y la serie apilados" src="_images/dash_tableta.jpg" style="width: 45%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">La página de EDA en una tableta de 768 píxeles de ancho.</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="ficha-del-modelo">
+<h2>Ficha del modelo<a class="headerlink" href="#ficha-del-modelo" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="detalles-del-modelo">
+<h2>Detalles del modelo<a class="headerlink" href="#detalles-del-modelo" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Autores:</strong> Andrés Parejo, Santiago Hurtado y Juan Marín (Pregrado en Ciencia de Datos, curso de Machine Learning, Universidad del Norte).</p></li>
+<li><p><strong>Tipo:</strong> combinación de tres expertos de pronóstico programados en NumPy: persistencia, regresión de Nadaraya-Watson del cambio mensual y cambio estacional medio. Los pesos dependen del estado del mercado laboral (volatilidad de los últimos tres meses y brecha frente a la media de doce meses) y se obtienen resolviendo un problema convexo en el símplex, regularizado con divergencia de Kullback-Leibler hacia una combinación global, con más fuerza cuando hay pocos meses parecidos en la historia.</p></li>
+<li><p><strong>Implementación:</strong> <code class="docutils literal notranslate"><span class="pre">src/original_model.py</span></code>, clase <code class="docutils literal notranslate"><span class="pre">ModeloOriginal</span></code>, compatible con scikit-learn. El artefacto del dashboard es <code class="docutils literal notranslate"><span class="pre">artifacts/reg_ALEE/model.joblib</span></code>.</p></li>
+<li><p><strong>Hiperparámetros:</strong> ancho de banda del núcleo (<code class="docutils literal notranslate"><span class="pre">bandwidth</span></code>), vida media del decaimiento temporal (<code class="docutils literal notranslate"><span class="pre">half_life</span></code>) y fuerza de la regularización (<code class="docutils literal notranslate"><span class="pre">lam</span></code>), elegidos con optimización bayesiana de 40 evaluaciones en una validación interna de ventana expansiva.</p></li>
+<li><p><strong>Garantías:</strong> solución única (P1), descenso monótono del algoritmo (P2), error nunca mayor que el del peor experto (P3) y casos límite conocidos (P4). Se comprueban en <code class="docutils literal notranslate"><span class="pre">tests/test_original_model.py</span></code>.</p></li>
+<li><p><strong>Versión:</strong> la de tres expertos descrita en el paper. Las versiones anteriores y las demás iteraciones de diseño están registradas en <code class="docutils literal notranslate"><span class="pre">docs/registro_desarrollo.md</span></code> y <code class="docutils literal notranslate"><span class="pre">experiments/protocolo.md</span></code>.</p></li>
+</ul>
+</section>
+<section id="uso-previsto">
+<h2>Uso previsto<a class="headerlink" href="#uso-previsto" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Pronóstico académico a un mes de la tasa de desempleo nacional de Colombia, con la información disponible al cierre del mes actual.</p></li>
+<li><p>Comparación de reglas de combinación de pronósticos en un curso de machine learning.</p></li>
+</ul>
+</section>
+<section id="usos-no-recomendados">
+<h2>Usos no recomendados<a class="headerlink" href="#usos-no-recomendados" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Decisiones de política económica, laboral o financiera sin el criterio de expertos y sin las cifras oficiales del DANE.</p></li>
+<li><p>Pronósticos a más de un mes: el modelo solo se entrenó y evaluó a un paso.</p></li>
+<li><p>Otras series sin repetir la validación: los hiperparámetros dependen de los datos.</p></li>
+</ul>
+</section>
+<section id="datos">
+<h2>Datos<a class="headerlink" href="#datos" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Colombia:</strong> 288 meses (objetivos de enero de 2002 a diciembre de 2025) con 17 variables construidas solo con información pasada. Ver <code class="docutils literal notranslate"><span class="pre">DATA_STATEMENT.md</span></code>.</p></li>
+<li><p><strong>Conjuntos adicionales:</strong> Estados Unidos (FRED), España (Eurostat), México, Canadá, Australia, Japón, Alemania y Corea del Sur (OCDE), con 14 variables nacionales, porque no tienen indicadores de área. Se evaluaron una sola vez, con el modelo ya congelado.</p></li>
+<li><p><strong>Validación:</strong> anidada con <code class="docutils literal notranslate"><span class="pre">TimeSeriesSplit</span></code> (5 pliegues externos y 3 internos, un mes de separación) y semilla 42.</p></li>
+</ul>
+</section>
+<section id="metricas">
+<h2>Métricas<a class="headerlink" href="#metricas" title="Permalink to this heading">#</a></h2>
+<p>RMSE medio de los cinco pliegues externos frente al mejor de los ocho modelos de regresión del curso (KNN, Ridge, Lasso, regresión bayesiana, árbol de decisión, Random Forest, XGBoost y SVR con kernel RBF) y LightGBM en cada conjunto. Tabla completa, con MAE, MAPE, R² y MASE, en el paper y en <code class="docutils literal notranslate"><span class="pre">artifacts/resultados/solo_curso/</span></code>.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Conjunto</p></th>
+<th class="head"><p>ALEE</p></th>
+<th class="head"><p>Mejor modelo de comparación</p></th>
+<th class="head"><p>Reducción del error</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Colombia</p></td>
+<td><p>0.817</p></td>
+<td><p>Ridge (1.219)</p></td>
+<td><p>33%</p></td>
+</tr>
+<tr class="row-odd"><td><p>Estados Unidos</p></td>
+<td><p>0.380</p></td>
+<td><p>Lasso (0.541)</p></td>
+<td><p>30%</p></td>
+</tr>
+<tr class="row-even"><td><p>España</p></td>
+<td><p>0.280</p></td>
+<td><p>Lasso (0.369)</p></td>
+<td><p>24%</p></td>
+</tr>
+<tr class="row-odd"><td><p>México</p></td>
+<td><p>0.281</p></td>
+<td><p>SVR (kernel RBF) (0.369)</p></td>
+<td><p>24%</p></td>
+</tr>
+<tr class="row-even"><td><p>Canadá</p></td>
+<td><p>0.437</p></td>
+<td><p>Lasso (0.601)</p></td>
+<td><p>27%</p></td>
+</tr>
+<tr class="row-odd"><td><p>Australia</p></td>
+<td><p>0.240</p></td>
+<td><p>Regresión bayesiana (0.342)</p></td>
+<td><p>30%</p></td>
+</tr>
+<tr class="row-even"><td><p>Japón</p></td>
+<td><p>0.149</p></td>
+<td><p>Regresión bayesiana (0.188)</p></td>
+<td><p>21%</p></td>
+</tr>
+<tr class="row-odd"><td><p>Alemania</p></td>
+<td><p>0.226</p></td>
+<td><p>Regresión bayesiana (0.288)</p></td>
+<td><p>22%</p></td>
+</tr>
+<tr class="row-even"><td><p>Corea del Sur</p></td>
+<td><p>0.325</p></td>
+<td><p>Regresión bayesiana (0.438)</p></td>
+<td><p>26%</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><strong>Pruebas por conjunto:</strong> Diebold-Mariano-HLN y Giacomini-White con corrección de Holm rechazan la igualdad en las 81 comparaciones (nueve modelos por nueve conjuntos).</p></li>
+<li><p><strong>Entre conjuntos:</strong> Friedman con Iman-Davenport rechaza la igualdad de los diez modelos; el Wilcoxon con Holm da p = 0.035 frente a cada modelo.</p></li>
+<li><p><strong>Intervalo de predicción al 90 %</strong> (predicción conforme sobre los 240 errores fuera de muestra de Colombia): semiancho de 1.18 pp; cobertura medida hacia adelante de 93.8% en 192 meses, con un ancho medio de 2.55 pp.</p></li>
+</ul>
+</section>
+<section id="ablacion">
+<h2>Ablación<a class="headerlink" href="#ablacion" title="Permalink to this heading">#</a></h2>
+<p>La mayor parte de la ventaja viene de los expertos. La combinación aprendida supera al promedio simple en siete de los nueve conjuntos; la localización por estado solo aporta de forma significativa en México y Japón, y la regularización adaptativa en Canadá y Japón.</p>
+</section>
+<section id="limitaciones-y-riesgos">
+<h2>Limitaciones y riesgos<a class="headerlink" href="#limitaciones-y-riesgos" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Nueve conjuntos dan una potencia moderada a las pruebas entre conjuntos.</p></li>
+<li><p>En Colombia se evaluaron diez iteraciones de diseño sobre los mismos 240 meses, lo que puede volver optimista el resultado en ese conjunto. Los ocho conjuntos adicionales, evaluados una sola vez con el modelo congelado, son la evidencia más confiable.</p></li>
+<li><p>El error se concentra en el choque de 2020: con pocos meses parecidos en la historia, la localización tiene poca información y el modelo se acerca a los pesos globales.</p></li>
+<li><p>Los datos son la versión vigente de las series y no la publicada en tiempo real cada mes.</p></li>
+<li><p>El modelo supone que las filas están en orden cronológico y que cada fila solo contiene información anterior al mes que se pronostica.</p></li>
+</ul>
+</section>
+<section id="consideraciones-eticas">
+<h2>Consideraciones éticas<a class="headerlink" href="#consideraciones-eticas" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>La tasa de desempleo resume la situación de millones de personas: un error de pronóstico puede retrasar o adelantar respuestas de política. El modelo debe presentarse siempre con su incertidumbre.</p></li>
+<li><p>No usa datos individuales ni información personal.</p></li>
+</ul>
+</section>
+<section id="guia-de-despliegue-en-render">
+<h2>Guía de despliegue en Render<a class="headerlink" href="#guia-de-despliegue-en-render" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Verificar localmente: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span></code>, y que <code class="docutils literal notranslate"><span class="pre">app.server</span></code> está expuesto.</p></li>
+<li><p>Subir el repositorio a GitHub. <code class="docutils literal notranslate"><span class="pre">requirements-dash.txt</span></code> fija versiones exactas e incluye <code class="docutils literal notranslate"><span class="pre">gunicorn</span></code>. Para ahorrar memoria usa <code class="docutils literal notranslate"><span class="pre">xgboost-cpu</span></code>, que evita las librerías de NVIDIA.</p></li>
+<li><p>En Render, crear un <em>Blueprint</em> o un <em>Web Service</em> desde el repositorio. <code class="docutils literal notranslate"><span class="pre">render.yaml</span></code> define la construcción (<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements-dash.txt</span></code>), el arranque (<code class="docutils literal notranslate"><span class="pre">gunicorn</span> <span class="pre">app:server</span> <span class="pre">--workers</span> <span class="pre">1</span> <span class="pre">--threads</span> <span class="pre">4</span></code>), la ruta de salud (<code class="docutils literal notranslate"><span class="pre">/health</span></code>) y Python 3.11.9.</p></li>
+<li><p>Escribir la clave <code class="docutils literal notranslate"><span class="pre">GROQ_API_KEY</span></code> en las variables de entorno del servicio, en el panel de Render.</p></li>
+<li><p>Revisar los registros de construcción y comprobar las cinco páginas y sus <em>callbacks</em> en la URL pública.</p></li>
+<li><p>GitHub Actions (<code class="docutils literal notranslate"><span class="pre">.github/workflows/tests.yml</span></code>) corre todas las pruebas con la misma versión de Python que Render en cada <em>push</em>. Así se verifica que los artefactos, creados en Windows con Python 3.9, cargan en Linux.</p></li>
+</ol>
+<p>El plan gratuito suspende el servicio cuando no tiene actividad: conviene abrir la URL unos minutos antes de la sustentación.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="07_evaluacion_ampliada.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Evaluación ampliada y robustez</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="09_conclusiones.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Conclusiones y limitaciones</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arquitectura">Arquitectura</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#secciones">Secciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones-de-diseno">Decisiones de diseño</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ficha-del-modelo">Ficha del modelo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detalles-del-modelo">Detalles del modelo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uso-previsto">Uso previsto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#usos-no-recomendados">Usos no recomendados</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datos">Datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metricas">Métricas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ablacion">Ablación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-y-riesgos">Limitaciones y riesgos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consideraciones-eticas">Consideraciones éticas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#guia-de-despliegue-en-render">Guía de despliegue en Render</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Andrés Parejo, Santiago Hurtado, Juan Marín
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <script>
+  document.body.setAttribute('data-bs-threshold', '0,0.1,0.5,1');
+  document.addEventListener('click', function (e) {
+    var enlace = e.target.closest ? e.target.closest('.bd-sidebar-secondary a[href^="#"]') : null;
+    var casilla = document.getElementById('__secondary');
+    if (enlace && casilla) { casilla.checked = false; }
+  });
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1167 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Modelo original: agregación local entrópica de expertos (ALEE) &#8212; Mercado Laboral Colombiano</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '05_modelo_original';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Protocolo y validación estadística" href="06_validacion.html" />
+    <link rel="prev" title="Revisión de literatura y novedad" href="04_literatura.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Mercado Laboral Colombiano: pronóstico del desempleo con machine learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_correcciones.html">Trazabilidad de correcciones</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_datos.html">Datos: ETL y EDA</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="02b_auditoria.html">Auditoría de fuga de información y declaración de los datos</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="03_benchmarks.html">Modelos benchmark</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="03b_mejores_combinaciones.html">Mejores combinaciones y artefactos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="04_literatura.html">Revisión de literatura y novedad</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Modelo original: agregación local entrópica de expertos (ALEE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_validacion.html">Protocolo y validación estadística</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_evaluacion_ampliada.html">Evaluación ampliada y robustez</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_dashboard.html">Dashboard y despliegue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_conclusiones.html">Conclusiones y limitaciones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_reproducibilidad.html">Reproducibilidad y bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F05_modelo_original.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/05_modelo_original.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Modelo original: agregación local entrópica de expertos (ALEE)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitacion-que-motiva-el-modelo">Limitación que motiva el modelo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formulacion">Formulación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pseudocodigo">Pseudocódigo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sustento-teorico">Sustento teórico</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion">Implementación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-unitarias">Pruebas unitarias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complejidad">Complejidad</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iteraciones-de-diseno-y-ablacion">Iteraciones de diseño y ablación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretabilidad">Interpretabilidad</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="modelo-original-agregacion-local-entropica-de-expertos-alee">
+<h1>Modelo original: agregación local entrópica de expertos (ALEE)<a class="headerlink" href="#modelo-original-agregacion-local-entropica-de-expertos-alee" title="Permalink to this heading">#</a></h1>
+<div class="note admonition">
+<p class="admonition-title">Versión del modelo</p>
+<p>Este capítulo describe la versión de ALEE del paper, con tres expertos. La versión pre-registrada tenía cinco; los dos expertos ridge se quitaron en una iteración de diseño posterior a la validación confirmatoria. Las diez iteraciones evaluadas están registradas en <code class="docutils literal notranslate"><span class="pre">docs/registro_desarrollo.md</span></code> y <code class="docutils literal notranslate"><span class="pre">experiments/protocolo.md</span></code>.</p>
+</div>
+<section id="limitacion-que-motiva-el-modelo">
+<h2>Limitación que motiva el modelo<a class="headerlink" href="#limitacion-que-motiva-el-modelo" title="Permalink to this heading">#</a></h2>
+<p>Si se separan las 240 predicciones fuera de muestra del segundo entregable por terciles de la volatilidad reciente (la desviación de los últimos tres meses, que se conoce al pronosticar), el mejor modelo cambia de un tercil a otro:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">modelos</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;XGBoost&quot;</span><span class="p">,</span> <span class="s2">&quot;Ridge&quot;</span><span class="p">,</span> <span class="s2">&quot;SVR&quot;</span><span class="p">,</span> <span class="s2">&quot;KNN&quot;</span><span class="p">,</span> <span class="s2">&quot;RandomForest&quot;</span><span class="p">,</span> <span class="s2">&quot;Lasso&quot;</span><span class="p">,</span> <span class="s2">&quot;DecisionTree&quot;</span><span class="p">]</span>
+<span class="n">vol</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="s2">&quot;td_nacional_rollstd3&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">oof</span><span class="p">[</span><span class="s2">&quot;idx&quot;</span><span class="p">]]</span>
+<span class="n">tercil</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">vol</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Baja&quot;</span><span class="p">,</span> <span class="s2">&quot;Media&quot;</span><span class="p">,</span> <span class="s2">&quot;Alta&quot;</span><span class="p">])</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">D</span><span class="o">.</span><span class="n">MODEL_LABELS</span><span class="p">[</span><span class="n">m</span><span class="p">]:</span> <span class="p">(</span><span class="n">oof</span><span class="p">[</span><span class="s2">&quot;y_true&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">oof</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;pred_</span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">modelos</span><span class="p">})</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">tercil</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<span class="n">mse</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Volatilidad reciente&quot;</span>
+<span class="n">mse</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Volatilidad reciente</th>
+      <th>Baja</th>
+      <th>Media</th>
+      <th>Alta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>XGBoost</th>
+      <td>1.804</td>
+      <td>1.116</td>
+      <td>4.453</td>
+    </tr>
+    <tr>
+      <th>Ridge</th>
+      <td>2.313</td>
+      <td>0.895</td>
+      <td>1.999</td>
+    </tr>
+    <tr>
+      <th>SVR</th>
+      <td>2.386</td>
+      <td>1.034</td>
+      <td>1.763</td>
+    </tr>
+    <tr>
+      <th>KNN</th>
+      <td>2.277</td>
+      <td>1.155</td>
+      <td>2.221</td>
+    </tr>
+    <tr>
+      <th>Random Forest</th>
+      <td>2.020</td>
+      <td>1.162</td>
+      <td>3.663</td>
+    </tr>
+    <tr>
+      <th>Lasso</th>
+      <td>3.108</td>
+      <td>1.926</td>
+      <td>3.552</td>
+    </tr>
+    <tr>
+      <th>Árbol de decisión</th>
+      <td>2.366</td>
+      <td>1.317</td>
+      <td>5.511</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor modelo por tercil: Baja: XGBoost; Media: Ridge; Alta: SVR
+Error del mejor y del peor modelo por tercil: Baja: 1.80 y 3.11; Media: 0.89 y 1.93; Alta: 1.76 y 5.51
+</pre></div>
+</div>
+</div>
+</div>
+<p>El modelo con menor error no es el mismo en los tres terciles. Una regla de combinación con pesos fijos (el promedio simple, los pesos por error global o el <em>stacking</em> lineal <span id="id1">[<a class="reference internal" href="10_reproducibilidad.html#id4" title="Allan Timmermann. Forecast combinations. In Handbook of Economic Forecasting, volume 1, pages 135–196. Elsevier, 2006.">Tim06</a>]</span>) no puede aprovechar ese cambio. <strong>Hipótesis:</strong> una combinación cuyos pesos dependan del estado del mercado laboral reduce el error frente a cualquier modelo único y frente a las combinaciones con pesos fijos.</p>
+</section>
+<section id="formulacion">
+<h2>Formulación<a class="headerlink" href="#formulacion" title="Permalink to this heading">#</a></h2>
+<p>Hay <span class="math notranslate nohighlight">\(K = 3\)</span> expertos programados con NumPy: persistencia (<span class="math notranslate nohighlight">\(\hat y = y_t\)</span>), regresión de Nadaraya-Watson del cambio, y cambio medio del mismo mes del año (el experto estacional). Hasta la iteración 3 había dos expertos más —ridge del nivel y ridge del cambio <span class="math notranslate nohighlight">\(y_{t+1} - y_t\)</span>— que se quitaron en la iteración 4 (exploratoria, posterior a la validación confirmatoria): evaluados en solitario se equivocaban más del doble que el experto estacional y diluían su peso en la combinación sin aportar precisión (<code class="docutils literal notranslate"><span class="pre">docs/registro_desarrollo.md</span></code>). Sea <span class="math notranslate nohighlight">\(e_s \in \mathbb{R}^K\)</span> el vector de errores <strong>fuera de muestra</strong> de los expertos en el mes <span class="math notranslate nohighlight">\(s\)</span>: cada experto se entrena solo con los meses anteriores a <span class="math notranslate nohighlight">\(s\)</span>. Para pronosticar en un punto <span class="math notranslate nohighlight">\(x\)</span> con estado <span class="math notranslate nohighlight">\(z(x)\)</span> (la volatilidad reciente y la brecha entre el último dato y la media de 12 meses, estandarizadas), los meses pasados reciben pesos</p>
+<div class="math notranslate nohighlight" id="equation-eq-localizacion">
+<span class="eqno">(1)<a class="headerlink" href="#equation-eq-localizacion" title="Permalink to this equation">#</a></span>\[
+a_s(x) \propto \exp\!\left(-\frac{\lVert z(x) - z_s\rVert^2}{2h^2}\right)\gamma^{\,n-1-s}, \qquad \sum_s a_s(x) = 1, \qquad \gamma = 0.5^{1/T_{1/2}}.
+\]</div>
+<p>Como los pesos de la combinación <span class="math notranslate nohighlight">\(w\)</span> suman uno, <span class="math notranslate nohighlight">\(y_s - w^\top f_s = w^\top e_s\)</span>, y el error cuadrático local de la combinación es <span class="math notranslate nohighlight">\(w^\top Q(x) w\)</span> con <span class="math notranslate nohighlight">\(Q(x) = \sum_s a_s(x)\, e_s e_s^\top\)</span>. Los pesos resuelven</p>
+<div class="math notranslate nohighlight" id="equation-eq-objetivo">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eq-objetivo" title="Permalink to this equation">#</a></span>\[
+w^*(x) = \arg\min_{w \in \Delta_K} \; F(w) = w^\top Q(x)\, w + \tilde\lambda\, \mathrm{KL}(w \,\Vert\, \pi), \qquad
+\tilde\lambda = \lambda\, \frac{n_{\mathrm{ref}}}{n_{\mathrm{eff}}(x)}\, \frac{\operatorname{tr} Q(x)}{K},
+\]</div>
+<p>donde <span class="math notranslate nohighlight">\(\Delta_K\)</span> es el símplex y <span class="math notranslate nohighlight">\(\pi\)</span> son los <strong>pesos globales</strong>: la misma combinación con todos los meses y solo el decaimiento temporal. <span class="math notranslate nohighlight">\(n_{\mathrm{eff}} = 1/\sum_s a_s^2\)</span> es el tamaño efectivo de la muestra local <span id="id2">[<a class="reference internal" href="10_reproducibilidad.html#id8" title="Leslie Kish. Survey Sampling. John Wiley &amp; Sons, 1965.">Kis65</a>]</span> y <span class="math notranslate nohighlight">\(n_{\mathrm{ref}}\)</span> el de los pesos globales. Cuando hay pocos meses parecidos al actual, como en el choque de 2020, la regularización crece y la combinación se queda cerca de <span class="math notranslate nohighlight">\(\pi\)</span>. El factor <span class="math notranslate nohighlight">\(\operatorname{tr}Q/K\)</span>, el error local medio de los expertos, hace que <span class="math notranslate nohighlight">\(\lambda\)</span> no dependa de las unidades. El pronóstico es <span class="math notranslate nohighlight">\(\hat y(x) = \sum_k w^*_k(x)\, f_k(x)\)</span>.</p>
+<p>El problema se resuelve con descenso de espejo proximal (gradiente exponenciado <span id="id3">[<a class="reference internal" href="10_reproducibilidad.html#id5" title="Jyrki Kivinen and Manfred K. Warmuth. Exponentiated gradient versus gradient descent for linear predictors. Information and Computation, 132(1):1–63, 1997.">KW97</a>]</span>) con paso <span class="math notranslate nohighlight">\(\eta = 1/L\)</span> y <span class="math notranslate nohighlight">\(L = 2\max_{ij}\lvert Q_{ij}\rvert\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-eq-actualizacion">
+<span class="eqno">(3)<a class="headerlink" href="#equation-eq-actualizacion" title="Permalink to this equation">#</a></span>\[
+w_{t+1} \propto \left(w_t \odot e^{-2\eta Q w_t}\right)^{\frac{1}{1+\eta\tilde\lambda}} \odot \pi^{\frac{\eta\tilde\lambda}{1+\eta\tilde\lambda}}.
+\]</div>
+</section>
+<section id="pseudocodigo">
+<h2>Pseudocódigo<a class="headerlink" href="#pseudocodigo" title="Permalink to this heading">#</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Entrada: X (n × p, en orden cronológico), y, hiperparámetros h, T½, λ
+Salida: pronóstico ŷ(x) y pesos w*(x)
+
+Entrenamiento
+1. para s = m0, …, n−1:
+       ajustar los K expertos con las filas 0..s−1
+       e_s ← y_s − f^(s)(x_s)
+2. z_s ← estado estandarizado de cada fila registrada
+3. π ← argmin_{w ∈ Δ} wᵀ Q_glob w + 0.01 · tr(Q_glob)/K · KL(w ‖ u)      (u: uniforme)
+4. ajustar los K expertos finales con todas las filas
+
+Predicción en x
+5. a ← pesos de la ecuación (1);  n_eff ← 1 / Σ a_s²
+6. Q ← Σ a_s e_s e_sᵀ;  λ̃ ← λ · (n_ref / n_eff) · tr(Q)/K;  η ← 1 / (2 max|Q_ij|)
+7. w ← π
+   repetir hasta ‖w_nuevo − w‖₁ &lt; 10⁻¹⁰ o 500 iteraciones:  w ← actualización (3)
+8. devolver ŷ = Σ_k w_k f_k(x)
+</pre></div>
+</div>
+</section>
+<section id="sustento-teorico">
+<h2>Sustento teórico<a class="headerlink" href="#sustento-teorico" title="Permalink to this heading">#</a></h2>
+<p><strong>P1 (existencia y unicidad).</strong> <span class="math notranslate nohighlight">\(\Delta_K\)</span> es compacto y <span class="math notranslate nohighlight">\(F\)</span> es continua, así que existe un mínimo. <span class="math notranslate nohighlight">\(w^\top Q w\)</span> es convexa porque <span class="math notranslate nohighlight">\(Q \succeq 0\)</span>, y <span class="math notranslate nohighlight">\(\mathrm{KL}(\cdot\Vert\pi)\)</span> es estrictamente convexa en <span class="math notranslate nohighlight">\(\Delta_K\)</span>. Con <span class="math notranslate nohighlight">\(\tilde\lambda &gt; 0\)</span>, <span class="math notranslate nohighlight">\(F\)</span> es estrictamente convexa y el minimizador es único. Como el gradiente de la divergencia tiende a menos infinito en la frontera, el óptimo está en el interior y cumple <span class="math notranslate nohighlight">\(\nabla F(w^*) = c\,\mathbf{1}\)</span>.</p>
+<p><strong>P2 (descenso monótono).</strong> Para <span class="math notranslate nohighlight">\(d = w' - w\)</span> se cumple <span class="math notranslate nohighlight">\(d^\top (2Q) d \le 2\max_{ij}\lvert Q_{ij}\rvert\, \lVert d\rVert_1^2 = L\lVert d\rVert_1^2\)</span>. Por la desigualdad de Pinsker, <span class="math notranslate nohighlight">\(\tfrac12\lVert d\rVert_1^2 \le \mathrm{KL}(w'\Vert w)\)</span>, de donde <span class="math notranslate nohighlight">\(g(w') \le g(w) + \nabla g(w)^\top (w'-w) + L\,\mathrm{KL}(w'\Vert w)\)</span> con <span class="math notranslate nohighlight">\(g(w) = w^\top Q w\)</span>: <span class="math notranslate nohighlight">\(g\)</span> es <span class="math notranslate nohighlight">\(L\)</span>-suave relativa a la entropía <span id="id4">[<a class="reference internal" href="10_reproducibilidad.html#id6" title="Heinz H. Bauschke, Jérôme Bolte, and Marc Teboulle. A descent lemma beyond Lipschitz gradient continuity: first-order methods revisited and applications. Mathematics of Operations Research, 42(2):330–348, 2017.">BBT17</a>, <a class="reference internal" href="10_reproducibilidad.html#id7" title="Haihao Lu, Robert M. Freund, and Yurii Nesterov. Relatively smooth convex optimization by first-order methods, and applications. SIAM Journal on Optimization, 28(1):333–354, 2018.">LFN18</a>]</span>. La actualización <a class="reference internal" href="#equation-eq-actualizacion">(3)</a> es el minimizador de <span class="math notranslate nohighlight">\(\nabla g(w_t)^\top v + \tilde\lambda\,\mathrm{KL}(v\Vert\pi) + L\,\mathrm{KL}(v\Vert w_t)\)</span> en <span class="math notranslate nohighlight">\(\Delta_K\)</span>; evaluando ese problema en <span class="math notranslate nohighlight">\(v = w_t\)</span> se obtiene <span class="math notranslate nohighlight">\(F(w_{t+1}) \le F(w_t)\)</span>. Además, <span class="math notranslate nohighlight">\(F(w_T) - F(w^*) \le L\,\mathrm{KL}(w^*\Vert w_0)/T\)</span> <span id="id5">[<a class="reference internal" href="10_reproducibilidad.html#id7" title="Haihao Lu, Robert M. Freund, and Yurii Nesterov. Relatively smooth convex optimization by first-order methods, and applications. SIAM Journal on Optimization, 28(1):333–354, 2018.">LFN18</a>]</span>. Como <span class="math notranslate nohighlight">\(\tilde\lambda\)</span> es constante para cada <span class="math notranslate nohighlight">\(x\)</span>, la regularización adaptativa no altera la prueba.</p>
+<p><strong>P3 (cota por los expertos).</strong> <span class="math notranslate nohighlight">\(\hat y\)</span> es una combinación convexa de los <span class="math notranslate nohighlight">\(f_k\)</span>, así que <span class="math notranslate nohighlight">\(\lvert y - \hat y\rvert \le \max_k \lvert y - f_k\rvert\)</span> y, por la desigualdad de Jensen, <span class="math notranslate nohighlight">\((y-\hat y)^2 \le \sum_k w_k (y - f_k)^2\)</span>.</p>
+<p><strong>P4 (casos límite).</strong> Si <span class="math notranslate nohighlight">\(\lambda \to \infty\)</span>, <span class="math notranslate nohighlight">\(w^* \to \pi\)</span>, que es la combinación global. Sin localización, los pesos no dependen de <span class="math notranslate nohighlight">\(x\)</span>. Con <span class="math notranslate nohighlight">\(\pi\)</span> uniforme y <span class="math notranslate nohighlight">\(\lambda \to \infty\)</span> se obtiene el promedio simple. Las reglas estándar son casos particulares, lo que define la ablación.</p>
+<p><strong>Supuestos y plausibilidad.</strong> Las filas están en orden cronológico y cada una solo usa información anterior al mes que pronostica, lo que se verificó en <a class="reference internal" href="02b_auditoria.html"><span class="doc">Auditoría de fuga de información y declaración de los datos</span></a>. Las garantías P1 a P3 no dependen de la distribución de los datos. La que sí depende de ella es que los errores pasados en estados parecidos anticipen los errores futuros, y en un choque sin precedentes como el de 2020 ese supuesto falla.</p>
+</section>
+<section id="implementacion">
+<h2>Implementación<a class="headerlink" href="#implementacion" title="Permalink to this heading">#</a></h2>
+<p>La clase <code class="docutils literal notranslate"><span class="pre">ModeloOriginal</span></code> hereda de <code class="docutils literal notranslate"><span class="pre">BaseEstimator</span></code> y <code class="docutils literal notranslate"><span class="pre">RegressorMixin</span></code>, de modo que funciona con <code class="docutils literal notranslate"><span class="pre">clone</span></code>, <code class="docutils literal notranslate"><span class="pre">cross_val_score</span></code> y la validación anidada del segundo entregable.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+Código del solucionador y de la clase (src/original_model.py)<div class="sd-summary-down docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
+<div class="sd-summary-up docutils">
+<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
+</summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">solve_weights</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">lam</span><span class="p">,</span> <span class="n">w0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">return_history</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">prior</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pesos de la combinación: minimiza ``wᵀQw + λ̃ KL(w||π)`` en el símplex.</span>
+
+<span class="sd">    Descenso de espejo proximal con paso ``1/L``, ``L = 2 max|Q_ij|``.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Q : ndarray (K, K)</span>
+<span class="sd">        Matriz local (simétrica, semidefinida positiva) de errores.</span>
+<span class="sd">    lam : float</span>
+<span class="sd">        Regularización ``λ`` (sin escalar); se usa ``λ̃ = λ tr(Q) / K``.</span>
+<span class="sd">    w0 : ndarray, optional</span>
+<span class="sd">        Punto de partida (por defecto, el previo ``π``).</span>
+<span class="sd">    max_iter : int</span>
+<span class="sd">        Máximo de iteraciones.</span>
+<span class="sd">    tol : float</span>
+<span class="sd">        Se detiene cuando ``||w_{t+1} - w_t||_1 &lt; tol``.</span>
+<span class="sd">    return_history : bool</span>
+<span class="sd">        Si se devuelve el valor del objetivo en cada iteración.</span>
+<span class="sd">    prior : ndarray, optional</span>
+<span class="sd">        Previo ``π`` del término de Kullback-Leibler, en el interior del</span>
+<span class="sd">        símplex (por defecto, el uniforme ``u``).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ndarray or (ndarray, list)</span>
+<span class="sd">        Pesos óptimos (y la historia del objetivo).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">K</span><span class="p">)</span> <span class="k">if</span> <span class="n">prior</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">prior</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">lam_t</span> <span class="o">=</span> <span class="n">lam</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span> <span class="o">/</span> <span class="n">K</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Q</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">w0</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">w0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+        <span class="n">kl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mf">1e-300</span><span class="p">))</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">u</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span> <span class="o">@</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">v</span> <span class="o">+</span> <span class="n">lam_t</span> <span class="o">*</span> <span class="n">kl</span><span class="p">)</span>
+
+    <span class="n">history</span> <span class="o">=</span> <span class="p">[</span><span class="n">objective</span><span class="p">(</span><span class="n">w</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">L</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># todos los expertos sin error local: cualquier w es óptimo, se deja el uniforme</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">history</span><span class="p">)</span> <span class="k">if</span> <span class="n">return_history</span> <span class="k">else</span> <span class="n">w</span>
+    <span class="n">eta</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">L</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">lam_t</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+        <span class="n">grad</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">w</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="mf">1e-300</span><span class="p">))</span> <span class="o">-</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">grad</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+        <span class="n">logits</span> <span class="o">-=</span> <span class="n">logits</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">w_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logits</span><span class="p">)</span>
+        <span class="n">w_new</span> <span class="o">/=</span> <span class="n">w_new</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">w_new</span> <span class="o">-</span> <span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">tol</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">w_new</span>
+        <span class="k">if</span> <span class="n">return_history</span><span class="p">:</span>
+            <span class="n">history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">objective</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">done</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">history</span><span class="p">)</span> <span class="k">if</span> <span class="n">return_history</span> <span class="k">else</span> <span class="n">w</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ModeloOriginal</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">RegressorMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Agregación local entrópica de expertos (ALEE) para pronóstico a un paso.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bandwidth : float</span>
+<span class="sd">        Ancho ``h`` del núcleo gaussiano sobre el estado estandarizado.</span>
+<span class="sd">    half_life : float</span>
+<span class="sd">        Vida media (en meses) del decaimiento temporal: ``γ = 0.5 ** (1 / half_life)``.</span>
+<span class="sd">        ``np.inf`` desactiva el decaimiento.</span>
+<span class="sd">    lam : float</span>
+<span class="sd">        Fuerza de la regularización entrópica hacia el previo ``π``.</span>
+<span class="sd">    shrink_to : {&quot;global&quot;, &quot;uniforme&quot;}</span>
+<span class="sd">        Previo ``π`` de la regularización: los pesos globales (la combinación</span>
+<span class="sd">        restringida al símplex con todos los meses, solo con decaimiento</span>
+<span class="sd">        temporal) o el promedio simple. Con ``&quot;global&quot;``, la localización solo</span>
+<span class="sd">        se aparta de la mejor combinación global cuando la evidencia local lo</span>
+<span class="sd">        justifica.</span>
+<span class="sd">    min_train : int</span>
+<span class="sd">        Meses mínimos para empezar a registrar errores fuera de muestra de los expertos.</span>
+<span class="sd">    feature_names : tuple of str</span>
+<span class="sd">        Nombres de las columnas de ``X``, en orden.</span>
+<span class="sd">    lag_col, month_cols, state_cols : str, tuple</span>
+<span class="sd">        Columnas con papel especial: último valor observado, mes codificado y</span>
+<span class="sd">        variables de estado. El estado incluye además la brecha</span>
+<span class="sd">        ``y_t - media móvil de 12 meses`` (``gap_cols``).</span>
+<span class="sd">    gap_cols : tuple of str or None</span>
+<span class="sd">        ``(último valor, media móvil)`` para la brecha; ``None`` para omitirla.</span>
+<span class="sd">    localize : bool</span>
+<span class="sd">        Si es ``False``, todos los meses pasados pesan igual (ablación).</span>
+<span class="sd">    adaptive_lam : bool</span>
+<span class="sd">        Si la regularización crece cuando la muestra local efectiva es pequeña</span>
+<span class="sd">        (ver ``effective_lam``). ``False`` reproduce la iteración 2.</span>
+<span class="sd">    max_iter : int</span>
+<span class="sd">        Iteraciones máximas del descenso de espejo.</span>
+<span class="sd">    random_state : int</span>
+<span class="sd">        Sin efecto (el algoritmo es determinista); se conserva por compatibilidad.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">bandwidth</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">half_life</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span>
+        <span class="n">lam</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">shrink_to</span><span class="o">=</span><span class="s2">&quot;global&quot;</span><span class="p">,</span>
+        <span class="n">min_train</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span>
+        <span class="n">feature_names</span><span class="o">=</span><span class="n">DEFAULT_FEATURES</span><span class="p">,</span>
+        <span class="n">lag_col</span><span class="o">=</span><span class="s2">&quot;td_nacional_lag1&quot;</span><span class="p">,</span>
+        <span class="n">month_cols</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;mes_sin&quot;</span><span class="p">,</span> <span class="s2">&quot;mes_cos&quot;</span><span class="p">),</span>
+        <span class="n">state_cols</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;td_nacional_rollstd3&quot;</span><span class="p">,),</span>
+        <span class="n">gap_cols</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;td_nacional_lag1&quot;</span><span class="p">,</span> <span class="s2">&quot;td_nacional_rollmean12&quot;</span><span class="p">),</span>
+        <span class="n">localize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">adaptive_lam</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bandwidth</span> <span class="o">=</span> <span class="n">bandwidth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">half_life</span> <span class="o">=</span> <span class="n">half_life</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lam</span> <span class="o">=</span> <span class="n">lam</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shrink_to</span> <span class="o">=</span> <span class="n">shrink_to</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_train</span> <span class="o">=</span> <span class="n">min_train</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">feature_names</span> <span class="o">=</span> <span class="n">feature_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lag_col</span> <span class="o">=</span> <span class="n">lag_col</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">month_cols</span> <span class="o">=</span> <span class="n">month_cols</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state_cols</span> <span class="o">=</span> <span class="n">state_cols</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gap_cols</span> <span class="o">=</span> <span class="n">gap_cols</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">localize</span> <span class="o">=</span> <span class="n">localize</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adaptive_lam</span> <span class="o">=</span> <span class="n">adaptive_lam</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+
+    <span class="c1"># -------------------------------------------------------------- utilidades</span>
+    <span class="k">def</span> <span class="nf">_validate_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bandwidth</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;bandwidth debe ser positivo&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">half_life</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;half_life debe ser positivo (np.inf para no decaer)&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lam</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;lam debe ser no negativo&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_train</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;min_train debe ser al menos 2&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shrink_to</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;global&quot;</span><span class="p">,</span> <span class="s2">&quot;uniforme&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;shrink_to debe ser &quot;global&quot; o &quot;uniforme&quot;&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_col</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;La columna </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> no está en feature_names&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="n">X</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_col</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_cols</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gap_cols</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_col</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gap_cols</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">-</span> <span class="n">X</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_col</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gap_cols</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+
+    <span class="c1"># ----------------------------------------------------------- aprendizaje</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Registra los errores fuera de muestra de los expertos y ajusta los expertos finales.</span>
+
+<span class="sd">        Para cada mes ``s`` desde ``m0`` hasta ``n - 1`` los expertos se ajustan</span>
+<span class="sd">        con los meses ``0..s-1`` y pronostican el mes ``s`` (ventana expansiva).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like (n, p)</span>
+<span class="sd">            Variables en orden cronológico, con las columnas de ``feature_names``.</span>
+<span class="sd">        y : array-like (n,)</span>
+<span class="sd">            Objetivo.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_params</span><span class="p">()</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">check_X_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">y_numeric</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">feature_names</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;X tiene </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> columnas y feature_names </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cols_</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;lag1&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_col</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lag_col</span><span class="p">),</span> <span class="s2">&quot;mes_sin&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_col</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">month_cols</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                      <span class="s2">&quot;mes_cos&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_col</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">month_cols</span><span class="p">[</span><span class="mi">1</span><span class="p">])}</span>
+        <span class="c1"># Arranque: suficientes meses para los expertos y para tener errores que localizar.</span>
+        <span class="n">m0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_train</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)))</span>
+        <span class="n">errors</span><span class="p">,</span> <span class="n">rows</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">experts</span> <span class="o">=</span> <span class="n">_Experts</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="n">s</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="n">s</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols_</span><span class="p">)</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">-</span> <span class="n">experts</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">s</span><span class="p">:</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">errors_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>            <span class="c1"># (n - m0, K)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oof_rows_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state_mu_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_sd_</span> <span class="o">=</span> <span class="n">_standardize_fit</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state_</span> <span class="o">=</span> <span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">oof_rows_</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_mu_</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_sd_</span>
+        <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">half_life</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">half_life</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_decay_</span> <span class="o">=</span> <span class="n">gamma</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">oof_rows_</span><span class="p">)</span>   <span class="c1"># log γ^(n-1-s)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">experts_</span> <span class="o">=</span> <span class="n">_Experts</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols_</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_features_in_</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expert_names_</span> <span class="o">=</span> <span class="n">EXPERTS</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prior_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_global_prior</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">_global_prior</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Previo ``π`` de la regularización.</span>
+
+<span class="sd">        Con ``shrink_to=&quot;global&quot;`` es la combinación restringida al símplex que</span>
+<span class="sd">        minimiza el error cuadrático de todos los meses registrados (solo con</span>
+<span class="sd">        el decaimiento temporal), con una regularización mínima hacia el</span>
+<span class="sd">        uniforme (``PRIOR_LAM``) para que quede en el interior del símplex,</span>
+<span class="sd">        donde el término de Kullback-Leibler está definido.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_decay_</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_decay_</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+        <span class="n">a</span> <span class="o">/=</span> <span class="n">a</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_eff_ref_</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shrink_to</span> <span class="o">==</span> <span class="s2">&quot;uniforme&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">K</span><span class="p">)</span>
+        <span class="n">Q</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">errors_</span> <span class="o">*</span> <span class="n">a</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">])</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors_</span>
+        <span class="n">prior</span> <span class="o">=</span> <span class="n">solve_weights</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">PRIOR_LAM</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+        <span class="n">prior</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">prior</span><span class="p">,</span> <span class="n">PRIOR_FLOOR</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">prior</span> <span class="o">/</span> <span class="n">prior</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">local_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pesos ``a_s(x)`` de los meses pasados para cada fila de ``X`` (n_x, n_oof).&quot;&quot;&quot;</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;errors_&quot;</span><span class="p">)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">localize</span><span class="p">:</span>
+            <span class="n">logk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oof_rows_</span><span class="p">)))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_mu_</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_sd_</span>
+            <span class="n">d2</span> <span class="o">=</span> <span class="p">((</span><span class="n">z</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">state_</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">logk</span> <span class="o">=</span> <span class="o">-</span><span class="n">d2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">bandwidth</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">logk</span> <span class="o">=</span> <span class="n">logk</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_decay_</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">logk</span> <span class="o">-=</span> <span class="n">logk</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logk</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">a</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">combination_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pesos ``w*(x)`` de los cinco expertos para cada fila de ``X`` (n_x, K).&quot;&quot;&quot;</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_weights</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">E</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors_</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">),</span> <span class="n">E</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+            <span class="n">Q</span> <span class="o">=</span> <span class="p">(</span><span class="n">E</span> <span class="o">*</span> <span class="n">a</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">])</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">E</span>
+            <span class="n">W</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">solve_weights</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">effective_lam</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">w0</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prior_</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span> <span class="n">prior</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prior_</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">W</span>
+
+    <span class="k">def</span> <span class="nf">effective_lam</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Regularización para unos pesos locales ``a``.</span>
+
+<span class="sd">        Con ``adaptive_lam=True`` se multiplica ``λ`` por ``n_ref / n_eff(a)``,</span>
+<span class="sd">        donde ``n_eff(a) = 1 / Σ a_s²`` es el tamaño efectivo de la muestra</span>
+<span class="sd">        local (de Kish) y ``n_ref`` el de los pesos solo con decaimiento. La</span>
+<span class="sd">        varianza de ``Q`` como estimador del error local crece como</span>
+<span class="sd">        ``1 / n_eff``: cuando hay pocos meses parecidos (como en el choque de</span>
+<span class="sd">        2020) la combinación se queda más cerca de los pesos globales.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">adaptive_lam</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lam</span>
+        <span class="n">n_eff</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lam</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_eff_ref_</span> <span class="o">/</span> <span class="n">n_eff</span>
+
+    <span class="k">def</span> <span class="nf">expert_predictions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pronóstico de cada experto final (n_x, K).&quot;&quot;&quot;</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;experts_&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">experts_</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pronóstico combinado ``Σ_k w*_k(x) f_k(x)``.&quot;&quot;&quot;</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;errors_&quot;</span><span class="p">)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_features_in_</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;X tiene </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> columnas; el modelo se ajustó con </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_features_in_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">combination_weights</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">expert_predictions</span><span class="p">(</span><span class="n">X</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+<section id="pruebas-unitarias">
+<h2>Pruebas unitarias<a class="headerlink" href="#pruebas-unitarias" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">tests/test_original_model.py</span></code> cubre los cinco puntos que exige la guía: aprendizaje con solución conocida, reproducibilidad, entradas inválidas, compatibilidad con <code class="docutils literal notranslate"><span class="pre">clone</span></code> y verificación numérica de P1 a P4. Se ejecutan al construir el libro:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pytest&quot;</span><span class="p">,</span> <span class="s2">&quot;-q&quot;</span><span class="p">,</span> <span class="s2">&quot;tests/test_original_model.py&quot;</span><span class="p">],</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold -Color-Bold-Green">65 passed</span><span class=" -Color -Color-Green"> in 14.64s</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="complejidad">
+<h2>Complejidad<a class="headerlink" href="#complejidad" title="Permalink to this heading">#</a></h2>
+<p>El entrenamiento cuesta <span class="math notranslate nohighlight">\(O(n^3 p)\)</span> en tiempo y <span class="math notranslate nohighlight">\(O(n^2)\)</span> en memoria: en cada uno de los <span class="math notranslate nohighlight">\(n\)</span> meses del historial, el experto de núcleo recalcula las distancias entre todos los meses anteriores para fijar su ancho de banda con la heurística de la mediana. Predecir en un punto cuesta <span class="math notranslate nohighlight">\(O(nK^2 + I K^2)\)</span>, con <span class="math notranslate nohighlight">\(I\)</span> iteraciones del descenso de espejo. Con los tamaños del problema (hasta 288 meses) las operaciones vectorizadas de NumPy hacen que el exponente medido quede por debajo de 3:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filas</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">72</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">216</span><span class="p">,</span> <span class="mi">288</span><span class="p">]:</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">();</span> <span class="n">m</span> <span class="o">=</span> <span class="n">ModeloOriginal</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="n">n</span><span class="p">],</span> <span class="n">ds</span><span class="o">.</span><span class="n">y_reg</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="n">n</span><span class="p">]);</span> <span class="n">fit</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">();</span> <span class="n">m</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">48</span><span class="p">:]);</span> <span class="n">pred</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+    <span class="n">filas</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span> <span class="s2">&quot;Entrenamiento (s)&quot;</span><span class="p">:</span> <span class="n">fit</span><span class="p">,</span> <span class="s2">&quot;Predicción de 48 meses (s)&quot;</span><span class="p">:</span> <span class="n">pred</span><span class="p">})</span>
+<span class="n">tiempos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">filas</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">)</span>
+<span class="n">pendiente</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">tiempos</span><span class="o">.</span><span class="n">index</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">tiempos</span><span class="p">[</span><span class="s2">&quot;Entrenamiento (s)&quot;</span><span class="p">]),</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exponente empírico del entrenamiento: </span><span class="si">{</span><span class="n">pendiente</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">tiempos</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exponente empírico del entrenamiento: 2.06
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Entrenamiento (s)</th>
+      <th>Predicción de 48 meses (s)</th>
+    </tr>
+    <tr>
+      <th>n</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>72</th>
+      <td>0.064</td>
+      <td>0.203</td>
+    </tr>
+    <tr>
+      <th>144</th>
+      <td>0.154</td>
+      <td>0.165</td>
+    </tr>
+    <tr>
+      <th>216</th>
+      <td>0.459</td>
+      <td>0.176</td>
+    </tr>
+    <tr>
+      <th>288</th>
+      <td>1.177</td>
+      <td>0.185</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="iteraciones-de-diseno-y-ablacion">
+<h2>Iteraciones de diseño y ablación<a class="headerlink" href="#iteraciones-de-diseno-y-ablacion" title="Permalink to this heading">#</a></h2>
+<p>Antes de la versión actual se evaluaron diez iteraciones de diseño sobre los 240 meses de Colombia, todas con validación anidada y registradas con fecha en <code class="docutils literal notranslate"><span class="pre">docs/registro_desarrollo.md</span></code>. Las tres primeras ajustaron el previo y la regularización de la versión de cinco expertos. La cuarta, posterior a la validación confirmatoria, quitó los dos expertos ridge: evaluados solos se equivocaban más del doble que el experto estacional y diluían su peso en la combinación. Las seis siguientes probaron otros expertos, otras variables de estado y otras reglas de combinación, y ninguna se adoptó. Como tantas iteraciones sobre los mismos meses pueden volver optimista el resultado en Colombia, la evidencia principal está en los ocho conjuntos adicionales, evaluados una sola vez con el modelo congelado (capítulo 7).</p>
+<p>Para ver de dónde viene el desempeño, cada uno de los tres expertos se evaluó solo en los mismos pliegues externos, con los hiperparámetros elegidos para la versión actual:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;artifacts/confirmatorio/iter4/rmse_K3_sin_ridge.csv&quot;</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">EXPERTS</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;promedio simple&quot;</span><span class="p">,</span> <span class="s2">&quot;ALEE&quot;</span><span class="p">]}</span>
+<span class="k">for</span> <span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">tr</span><span class="p">,</span> <span class="n">te</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">TimeSeriesSplit</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">N_SPLITS_OUTER</span><span class="p">,</span> <span class="n">gap</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">CV_GAP</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">X</span><span class="p">)):</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">f</span><span class="p">][[</span><span class="s2">&quot;bandwidth&quot;</span><span class="p">,</span> <span class="s2">&quot;half_life&quot;</span><span class="p">,</span> <span class="s2">&quot;lam&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">ModeloOriginal</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">tr</span><span class="p">],</span> <span class="n">ds</span><span class="o">.</span><span class="n">y_reg</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">tr</span><span class="p">])</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">expert_predictions</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">te</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">nombre</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">EXPERTS</span><span class="p">):</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">nombre</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">ds</span><span class="o">.</span><span class="n">y_reg</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">te</span><span class="p">]</span> <span class="o">-</span> <span class="n">F</span><span class="p">[:,</span> <span class="n">k</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;promedio simple&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">ds</span><span class="o">.</span><span class="n">y_reg</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">te</span><span class="p">]</span> <span class="o">-</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;ALEE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">ds</span><span class="o">.</span><span class="n">y_reg</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">te</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">te</span><span class="p">]))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)))</span>
+<span class="n">ablacion</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;RMSE medio&quot;</span><span class="p">,</span> <span class="s2">&quot;Desviación&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">ablacion</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;RMSE medio&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RMSE medio</th>
+      <th>Desviación</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>estacional</th>
+      <td>0.780</td>
+      <td>0.334</td>
+    </tr>
+    <tr>
+      <th>ALEE</th>
+      <td>0.817</td>
+      <td>0.328</td>
+    </tr>
+    <tr>
+      <th>promedio simple</th>
+      <td>1.035</td>
+      <td>0.287</td>
+    </tr>
+    <tr>
+      <th>nucleo_cambio</th>
+      <td>1.252</td>
+      <td>0.255</td>
+    </tr>
+    <tr>
+      <th>persistencia</th>
+      <td>1.273</td>
+      <td>0.257</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>El experto estacional es el componente más fuerte, y el promedio simple de los tres queda muy por detrás de la combinación. El capítulo 7 repite la ablación completa (sin localización, sin regularización adaptativa, previo uniforme, promedio simple y cada experto solo) en los nueve conjuntos, con pruebas de significancia.</p>
+</section>
+<section id="interpretabilidad">
+<h2>Interpretabilidad<a class="headerlink" href="#interpretabilidad" title="Permalink to this heading">#</a></h2>
+<p>Valores de Shapley <span id="id6">[<a class="reference internal" href="10_reproducibilidad.html#id9" title="Erik Štrumbelj and Igor Kononenko. Explaining prediction models and individual predictions with feature contributions. Knowledge and Information Systems, 41(3):647–665, 2014.">vStrumbeljK14</a>]</span> de los pronósticos de ALEE y de la mejor combinación de regresión del segundo entregable (Ridge), precalculados en <code class="docutils literal notranslate"><span class="pre">data/dashboard/shap/</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;reg_ALEE&quot;</span><span class="p">,</span> <span class="s2">&quot;#7c3aed&quot;</span><span class="p">),</span> <span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;reg_Ridge&quot;</span><span class="p">,</span> <span class="s2">&quot;#2563eb&quot;</span><span class="p">)]:</span>
+    <span class="n">sg</span> <span class="o">=</span> <span class="n">D</span><span class="o">.</span><span class="n">shap_global</span><span class="p">(</span><span class="n">nombre</span><span class="p">)</span>
+    <span class="n">imp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">sg</span><span class="p">[</span><span class="s2">&quot;phi&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="n">D</span><span class="o">.</span><span class="n">FEATURE_INFO</span><span class="p">[</span><span class="n">c</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">sg</span><span class="p">[</span><span class="s2">&quot;columns&quot;</span><span class="p">]])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">imp</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">imp</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">D</span><span class="o">.</span><span class="n">MODEL_LABELS</span><span class="p">[</span><span class="n">nombre</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Impacto medio |Shapley| (pp)&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ac315e9ad80635ccea02006b5840ba188b286dd664c753f7d70442e425fd9ab0.png" src="_images/ac315e9ad80635ccea02006b5840ba188b286dd664c753f7d70442e425fd9ab0.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ALEE (modelo original): Desempleo nacional del mes t 60%; Mes (seno) 19%; Mes (coseno) 14%
+Ridge: Desempleo 13 áreas 12%; Desempleo nacional de t−11 11%; Desempleo nacional del mes t 11%
+</pre></div>
+</div>
+</div>
+</div>
+<p>Los dos modelos usan la información de forma muy distinta. ALEE concentra la atribución en el último dato conocido y en el mes del año (seno y coseno), que son la huella de sus expertos de persistencia y estacional. Ridge la reparte entre muchas variables.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "mlc-ml"
+        },
+        kernelOptions: {
+            name: "mlc-ml",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'mlc-ml'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="04_literatura.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Revisión de literatura y novedad</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="06_validacion.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Protocolo y validación estadística</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitacion-que-motiva-el-modelo">Limitación que motiva el modelo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formulacion">Formulación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pseudocodigo">Pseudocódigo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sustento-teorico">Sustento teórico</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementacion">Implementación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-unitarias">Pruebas unitarias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complejidad">Complejidad</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#iteraciones-de-diseno-y-ablacion">Iteraciones de diseño y ablación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretabilidad">Interpretabilidad</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Andrés Parejo, Santiago Hurtado, Juan Marín
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <script>
+  document.body.setAttribute('data-bs-threshold', '0,0.1,0.5,1');
+  document.addEventListener('click', function (e) {
+    var enlace = e.target.closest ? e.target.closest('.bd-sidebar-secondary a[href^="#"]') : null;
+    var casilla = document.getElementById('__secondary');
+    if (enlace && casilla) { casilla.checked = false; }
+  });
+</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Notebooks with MyST Markdown &#8212; Mercado Laboral Colombiano</title>
+    <title>Mercado Laboral Colombiano: pronóstico del desempleo con machine learning &#8212; Mercado Laboral Colombiano</title>
   
   
   
@@ -61,9 +61,10 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'markdown-notebooks';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Datos: ETL y EDA" href="02_datos.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -129,7 +130,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
   
 
-<a class="navbar-brand logo" href="MLC.html">
+<a class="navbar-brand logo" href="#">
   
   
   
@@ -148,13 +149,30 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="MLC.html">
-                    Mercado Laboral Colombiano
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    Mercado Laboral Colombiano: pronóstico del desempleo con machine learning
                 </a>
             </li>
         </ul>
-        
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="02_datos.html">Datos: ETL y EDA</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="02b_auditoria.html">Auditoría de fuga de información y declaración de los datos</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="03_benchmarks.html">Modelos benchmark</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="03b_mejores_combinaciones.html">Mejores combinaciones y artefactos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="04_literatura.html">Revisión de literatura y novedad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_modelo_original.html">Modelo original: agregación local entrópica de expertos (ALEE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_validacion.html">Protocolo y validación estadística</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_evaluacion_ampliada.html">Evaluación ampliada y robustez</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08_dashboard.html">Dashboard y despliegue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09_conclusiones.html">Conclusiones y limitaciones</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10_reproducibilidad.html">Reproducibilidad y bibliografía</a></li>
+</ul>
+
     </div>
 </nav></div>
     </div>
@@ -224,7 +242,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fmarkdown-notebooks.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -254,7 +272,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/markdown-notebooks.md" target="_blank"
+      <li><a href="_sources/intro.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -336,7 +354,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Notebooks with MyST Markdown</h1>
+    <h1>Mercado Laboral Colombiano: pronóstico del desempleo con machine learning</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -346,9 +364,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-cell">An example cell</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-notebook-with-myst-markdown">Create a notebook with MyST Markdown</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quickly-add-yaml-metadata-for-myst-notebooks">Quickly add YAML metadata for MyST Notebooks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen">Resumen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-y-motivacion">Problema y motivación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contribuciones">Contribuciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos">Objetivos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapa-del-libro">Mapa del libro</a></li>
 </ul>
             </nav>
         </div>
@@ -360,46 +380,79 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="notebooks-with-myst-markdown">
-<h1>Notebooks with MyST Markdown<a class="headerlink" href="#notebooks-with-myst-markdown" title="Permalink to this heading">#</a></h1>
-<p>Jupyter Book also lets you write text-based notebooks using MyST Markdown.
-See <a class="reference external" href="https://jupyterbook.org/file-types/myst-notebooks.html">the Notebooks with MyST Markdown documentation</a> for more detailed instructions.
-This page shows off a notebook written in MyST Markdown.</p>
-<section id="an-example-cell">
-<h2>An example cell<a class="headerlink" href="#an-example-cell" title="Permalink to this heading">#</a></h2>
-<p>With MyST Markdown, you can define code cells with a directive like so:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>When your book is built, the contents of any <code class="docutils literal notranslate"><span class="pre">{code-cell}</span></code> blocks will be
-executed with your default Jupyter kernel, and their outputs will be displayed
-in-line with the rest of your content.</p>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>Jupyter Book uses <a class="reference external" href="https://jupytext.readthedocs.io/en/latest/">Jupytext</a> to convert text-based files to notebooks, and can support <a class="reference external" href="https://jupyterbook.org/file-types/jupytext.html">many other text-based notebook files</a>.</p>
-</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="mercado-laboral-colombiano-pronostico-del-desempleo-con-machine-learning">
+<h1>Mercado Laboral Colombiano: pronóstico del desempleo con machine learning<a class="headerlink" href="#mercado-laboral-colombiano-pronostico-del-desempleo-con-machine-learning" title="Permalink to this heading">#</a></h1>
+<p><strong>Andrés Parejo, Santiago Hurtado y Juan Marín</strong> · Pregrado en Ciencia de Datos · Machine Learning, tercer entregable</p>
+<section id="resumen">
+<h2>Resumen<a class="headerlink" href="#resumen" title="Permalink to this heading">#</a></h2>
+<p>Se pronosticó la tasa de desempleo nacional de Colombia del mes siguiente con la información disponible al cierre de cada mes, entre 2002 y 2025. Sobre 288 meses y 17 variables se compararon 140 combinaciones de siete modelos, cuatro técnicas de balanceo (en clasificación) y cuatro optimizadores de hiperparámetros, con validación anidada de ventana expansiva. En regresión, la mejor combinación por RMSE medio fue Ridge (1.196 ± 0.552); en clasificación, KNN (F1-macro 0.679 ± 0.211), y ninguna de las dos se distingue estadísticamente de las demás.</p>
+<p>Como modelo original se propuso ALEE (agregación local entrópica de expertos). Combina tres expertos programados desde cero (persistencia, regresión de Nadaraya-Watson del cambio y cambio estacional medio) con pesos que dependen del estado del mercado laboral, se restringen al símplex y se regularizan con divergencia de Kullback-Leibler hacia una combinación global. El problema es convexo, tiene solución única y se resuelve por descenso de espejo con descenso monótono.</p>
+<p>ALEE se comparó con los ocho modelos de regresión del curso y con LightGBM en Colombia y en ocho países más. Tiene el menor error en los nueve conjuntos y en las cinco métricas, con reducciones del RMSE de 21 % a 33 % frente al mejor modelo de comparación. Diebold-Mariano-HLN y Giacomini-White con corrección de Holm rechazan la igualdad en las 81 comparaciones, y el Wilcoxon con Holm entre conjuntos da p = 0.035 frente a cada modelo. La ablación muestra que la ventaja viene sobre todo de los expertos: la localización por estado solo aporta de forma significativa en dos conjuntos.</p>
 </section>
-<section id="create-a-notebook-with-myst-markdown">
-<h2>Create a notebook with MyST Markdown<a class="headerlink" href="#create-a-notebook-with-myst-markdown" title="Permalink to this heading">#</a></h2>
-<p>MyST Markdown notebooks are defined by two things:</p>
+<section id="problema-y-motivacion">
+<h2>Problema y motivación<a class="headerlink" href="#problema-y-motivacion" title="Permalink to this heading">#</a></h2>
+<p>La tasa de desempleo es la cifra del mercado laboral que más se sigue en el país. El DANE la publica con un mes de rezago, y anticiparla sirve para orientar decisiones de política. La serie es difícil de pronosticar: es muy persistente, tiene una estacionalidad marcada (sube cada enero) y sufrió un choque extremo en 2020, cuando llegó a 21.97 %.</p>
+</section>
+<section id="contribuciones">
+<h2>Contribuciones<a class="headerlink" href="#contribuciones" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p>YAML metadata that is needed to understand if / how it should convert text files to notebooks (including information about the kernel needed).
-See the YAML at the top of this page for example.</p></li>
-<li><p>The presence of <code class="docutils literal notranslate"><span class="pre">{code-cell}</span></code> directives, which will be executed with your book.</p></li>
+<li><p>Una comparación de 140 combinaciones de modelos, técnicas de balanceo y optimizadores, con validación anidada que respeta el orden del tiempo y una batería estadística jerárquica.</p></li>
+<li><p>La evidencia de que el mejor modelo de machine learning cambia con el régimen de volatilidad del mercado laboral (capítulo 5).</p></li>
+<li><p>ALEE, una regla de combinación de pronósticos localizada por estado, con cuatro propiedades demostradas y verificadas con pruebas unitarias.</p></li>
+<li><p>Una evaluación en nueve conjuntos de datos con protocolo pre-registrado, ablación y estudios de robustez (capítulos 6 y 7).</p></li>
+<li><p>Un dashboard en Dash con los modelos, los resultados y un asistente conversacional (capítulo 8).</p></li>
+<li><p>Un paquete de reproducibilidad: artefactos verificados, registro de iteraciones de diseño y pruebas automáticas.</p></li>
 </ol>
-<p>That’s all that is needed to get started!</p>
 </section>
-<section id="quickly-add-yaml-metadata-for-myst-notebooks">
-<h2>Quickly add YAML metadata for MyST Notebooks<a class="headerlink" href="#quickly-add-yaml-metadata-for-myst-notebooks" title="Permalink to this heading">#</a></h2>
-<p>If you have a markdown file and you’d like to quickly add YAML metadata to it, so that Jupyter Book will treat it as a MyST Markdown Notebook, run the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span><span class="o">-</span><span class="n">book</span> <span class="n">myst</span> <span class="n">init</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">markdownfile</span><span class="o">.</span><span class="n">md</span>
-</pre></div>
+<section id="objetivos">
+<h2>Objetivos<a class="headerlink" href="#objetivos" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Elegir con criterios estadísticos la mejor combinación de cada modelo y ponerla en producción (capítulos 3 y 8).</p></li>
+<li><p>Diseñar, implementar y validar un modelo original frente a los modelos del curso (capítulos 4 a 7).</p></li>
+</ul>
+</section>
+<section id="mapa-del-libro">
+<h2>Mapa del libro<a class="headerlink" href="#mapa-del-libro" title="Permalink to this heading">#</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Capítulo</p></th>
+<th class="head"><p>Contenido</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>Datos: ETL, EDA y auditoría de fuga de información</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>Modelos benchmark y mejores combinaciones</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>Revisión de literatura y novedad</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>Modelo original (ALEE)</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>Protocolo y validación estadística</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>Evaluación ampliada y robustez</p></td>
+</tr>
+<tr class="row-even"><td><p>8</p></td>
+<td><p>Dashboard y despliegue</p></td>
+</tr>
+<tr class="row-odd"><td><p>9</p></td>
+<td><p>Conclusiones y limitaciones</p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>Reproducibilidad y bibliografía</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Dashboard:</strong> pendiente del despliegue en Render. Para verlo localmente: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span></code> y abrir <a class="reference external" href="http://127.0.0.1:8050">http://127.0.0.1:8050</a>.</p>
+</section>
+<div class="toctree-wrapper compound">
 </div>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -433,6 +486,15 @@ See the YAML at the top of this page for example.</p></li>
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="right-next"
+       href="02_datos.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Datos: ETL y EDA</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div></div>
   
 </div>
@@ -451,9 +513,11 @@ See the YAML at the top of this page for example.</p></li>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#an-example-cell">An example cell</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-notebook-with-myst-markdown">Create a notebook with MyST Markdown</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quickly-add-yaml-metadata-for-myst-notebooks">Quickly add YAML metadata for MyST Notebooks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen">Resumen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problema-y-motivacion">Problema y motivación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contribuciones">Contribuciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos">Objetivos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mapa-del-libro">Mapa del libro</a></li>
 </ul>
   </nav></div>
 
@@ -477,7 +541,7 @@ By Andrés Parejo, Santiago Hurtado, Juan Marín
     
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2026.
       <br/>
     
   </p>
